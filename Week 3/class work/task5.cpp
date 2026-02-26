@@ -13,7 +13,7 @@ cout<<"Enter Intermediate marks (out of 555  ) :";
 cin>>inter_marks;
 cout<<"Enter Ecat marks (out of 400 ) :";
 cin>>ecat_marks;
-aggregate = ((ecat_marks / 400)*50)+((inter_marks / 555 )*40)+((matric_marks /1100)*10);
+aggregate = ((ecat_marks / 400.0)*50)+((inter_marks / 555.0 )*40)+((matric_marks /1100.0)*10);
 cout<<" Aggregate Score for "<<name<<" is : "<<aggregate << "%";
 return 0;
 }
