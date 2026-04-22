@@ -37,5 +37,5 @@ bool digit_check(int digit)
 {
     int last = digit % 10;
     int first = digit / 100;
-    return first == last;  // cleaner
+    return first == last;  
 }
