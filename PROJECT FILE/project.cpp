@@ -6,39 +6,40 @@ using namespace std;
 int main()
 {
     int index = 10;
-    const int Total_Consumers = 30; // Total Size
+    const int Total_Consumers = 30;
     int Total_Months = 6;
+<<<<<<< HEAD
     // data strurcture
     // This Program consist 10 HARDCODE CSTOMER
     // Consumers Name Section
     string Consumers_nameArray[Total_Consumers] = {"Smart", "Brandon", "Tony", "Gullo", "Venom", "Nick", "John", "CARLO", "Inferno", "Trump"};
     // Consumer's Adress Secion
+=======
+
+    string Consumers_nameArray[Total_Consumers] = {"Smart", "Brandon", "Tony", "Legend", "Venom", "Eagle", "Knight", "Shadow", "Inferno", "Blaze"};
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
     string adress_Array[Total_Consumers] = {"Ali Town Block C", "Lake City M4", "PSCIR Phase 2", "DHA Phase 2", "DHA Phase 4", "NFC Street 74", "Airline Street 34", "Model Town Phasae 3", "Wapda Town Block D", "Ali Town Street 19"};
-    // Conumer's Ids Section
     int Consumers_IdArray[Total_Consumers] = {101, 102, 103, 104, 105, 106, 107, 108, 109, 110};
-    // Meter Id Number Section
     int meterNumber_Array[Total_Consumers] = {111, 222, 333, 444, 555, 666, 777, 888, 999, 1010};
-    // Connection Type ( 1=domestic, 2=commercial)
     int connection_TypeArray[Total_Consumers] = {1, 2, 1, 2, 1, 2, 1, 2, 1, 2};
-    // Active Status ( 1=Active, 0=Inactive)
     int active_StatusArray[Total_Consumers] = {1, 0, 1, 0, 1, 0, 1, 0, 1, 0};
-    // Previous Unit of 6 month (First 10 Consumers)
+
     int prev1[30] = {100, 110, 120, 130, 140, 150, 160, 170, 180, 190};
     int prev2[30] = {150, 160, 170, 180, 190, 200, 210, 220, 230, 240};
     int prev3[30] = {200, 210, 220, 230, 240, 250, 260, 270, 280, 290};
     int prev4[30] = {250, 260, 270, 280, 290, 300, 310, 320, 330, 340};
     int prev5[30] = {300, 310, 320, 330, 340, 350, 360, 370, 380, 390};
     int prev6[30] = {350, 360, 370, 380, 390, 400, 410, 420, 430, 440};
-    // Current Units of 6 Months  (First 10 consumers)
+
     int curr1[30] = {150, 165, 180, 195, 210, 225, 240, 255, 270, 285};
     int curr2[30] = {200, 215, 230, 245, 260, 275, 290, 305, 320, 335};
     int curr3[30] = {250, 265, 280, 295, 310, 325, 340, 355, 370, 385};
     int curr4[30] = {300, 315, 330, 345, 360, 375, 390, 405, 420, 435};
     int curr5[30] = {350, 365, 380, 395, 410, 425, 440, 455, 470, 485};
     int curr6[30] = {400, 415, 430, 445, 460, 475, 490, 505, 520, 535};
-    // UNITS Consumed by months
+
     int used_units1[30], used_units2[30], used_units3[30], used_units4[30], used_units5[30], used_units6[30];
-    // Calculation Loop for first 10 consumers
+
     for (int i = 0; i < 10; i++)
     {
         used_units1[i] = curr1[i] - prev1[i];
@@ -48,25 +49,38 @@ int main()
         used_units5[i] = curr5[i] - prev5[i];
         used_units6[i] = curr6[i] - prev6[i];
     }
+<<<<<<< HEAD
     // Paid Status 1 = Paid, 0 = Unpaid
+=======
+
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
     int pay_stat1[30] = {1, 0, 1, 1, 0, 1, 1, 0, 1, 1};
     int pay_stat2[30] = {1, 1, 0, 1, 1, 0, 1, 1, 0, 1};
     int pay_stat3[30] = {0, 1, 1, 0, 1, 1, 0, 1, 1, 0};
     int pay_stat4[30] = {1, 1, 1, 1, 0, 0, 1, 1, 1, 1};
     int pay_stat5[30] = {1, 0, 1, 0, 1, 1, 1, 0, 1, 0};
     int pay_stat6[30] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+<<<<<<< HEAD
     // Bill Calculation
     float bill_m1[30], bill_m2[30], bill_m3[30], bill_m4[30], bill_m5[30], bill_m6[30];
     // Rates & Taxes
     float domestic_rate = 20.0;   // For Type 1
     float commercial_rate = 45.0; // For Type 2
     float tax = 0.15;             // 15% tax
+=======
+
+    float bill_m1[30], bill_m2[30], bill_m3[30], bill_m4[30], bill_m5[30], bill_m6[30];
+
+    float domestic_rate = 20.0;
+    float commercial_rate = 45.0;
+    float tax = 0.15;
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
     float fixed_charges = 500.0;
-    // Bill Calculation Loop
-    // Bill Calculation Loop with Arrears
+
     for (int i = 0; i < 10; i++)
     {
         float current_rate;
+<<<<<<< HEAD
         if (connection_TypeArray[i] == 1)
         {
             current_rate = domestic_rate;
@@ -78,35 +92,22 @@ int main()
         // --- Month 1 ---
         bill_m1[i] = (used_units1[i] * current_rate) * (1 + tax) + fixed_charges;
         // --- Month 2 --- (Check if M1 was Unpaid)
+=======
+        if (connection_TypeArray[i] == 1) { current_rate = domestic_rate; }
+        else { current_rate = commercial_rate; }
+
+        bill_m1[i] = (used_units1[i] * current_rate) * (1 + tax) + fixed_charges;
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
         bill_m2[i] = (used_units2[i] * current_rate) * (1 + tax) + fixed_charges;
-        if (pay_stat1[i] == 0)
-        {
-            bill_m2[i] += bill_m1[i]; // Add M1 amount
-        }
-        // --- Month 3 --- (Check if M2 was Unpaid)
+        if (pay_stat1[i] == 0) { bill_m2[i] += bill_m1[i]; }
         bill_m3[i] = (used_units3[i] * current_rate) * (1 + tax) + fixed_charges;
-        if (pay_stat2[i] == 0)
-        {
-            bill_m3[i] += bill_m2[i]; // Add cumulative M2 amount
-        }
-        // --- Month 4 ---
+        if (pay_stat2[i] == 0) { bill_m3[i] += bill_m2[i]; }
         bill_m4[i] = (used_units4[i] * current_rate) * (1 + tax) + fixed_charges;
-        if (pay_stat3[i] == 0)
-        {
-            bill_m4[i] += bill_m3[i];
-        }
-        // --- Month 5 ---
+        if (pay_stat3[i] == 0) { bill_m4[i] += bill_m3[i]; }
         bill_m5[i] = (used_units5[i] * current_rate) * (1 + tax) + fixed_charges;
-        if (pay_stat4[i] == 0)
-        {
-            bill_m5[i] += bill_m4[i];
-        }
-        // --- Month 6 ---
+        if (pay_stat4[i] == 0) { bill_m5[i] += bill_m4[i]; }
         bill_m6[i] = (used_units6[i] * current_rate) * (1 + tax) + fixed_charges;
-        if (pay_stat5[i] == 0)
-        {
-            bill_m6[i] += bill_m5[i];
-        }
+        if (pay_stat5[i] == 0) { bill_m6[i] += bill_m5[i]; }
     }
 
     // Initialize remaining slots to 0
@@ -116,6 +117,7 @@ int main()
         meterNumber_Array[i] = 0;
         connection_TypeArray[i] = 1;
         active_StatusArray[i] = 1;
+<<<<<<< HEAD
         prev1[i] = 0;
         prev2[i] = 0;
         prev3[i] = 0;
@@ -148,10 +150,21 @@ int main()
         pay_stat6[i] = 1;
     }
     // CRUD Create, Read, Update, Delete
+=======
+        prev1[i] = 0; prev2[i] = 0; prev3[i] = 0; prev4[i] = 0; prev5[i] = 0; prev6[i] = 0;
+        curr1[i] = 0; curr2[i] = 0; curr3[i] = 0; curr4[i] = 0; curr5[i] = 0; curr6[i] = 0;
+        used_units1[i] = 0; used_units2[i] = 0; used_units3[i] = 0;
+        used_units4[i] = 0; used_units5[i] = 0; used_units6[i] = 0;
+        bill_m1[i] = 0; bill_m2[i] = 0; bill_m3[i] = 0;
+        bill_m4[i] = 0; bill_m5[i] = 0; bill_m6[i] = 0;
+        pay_stat1[i] = 1; pay_stat2[i] = 1; pay_stat3[i] = 1;
+        pay_stat4[i] = 1; pay_stat5[i] = 1; pay_stat6[i] = 1;
+    }
+
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
     while (true)
     {
         system("cls");
-        // main header of Electricity Bill and Monthly Record System
         cout << "==================================================================\n";
         cout << "===========Electricity Bill and Monthly Record System ============\n";
         cout << "==================================================================\n\n";
@@ -166,7 +179,6 @@ int main()
 
         if (userOption == "1")
         {
-            // Manager Code
             for (int i = 0; i < 3; i++)
             {
                 cout << endl;
@@ -211,7 +223,11 @@ int main()
                             cout << "--- Consumer Record Management (Full Database View) ---\n\n";
                             cout << "Index\tStatus\t\tID\tMeter #\t\tName\n";
                             cout << "------------------------------------------------------------\n";
+<<<<<<< HEAD
                             // Show all Empty and Filled Slots
+=======
+
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                             for (int k = 0; k < Total_Consumers; k++)
                             {
                                 cout << "[" << k << "]\t";
@@ -228,24 +244,16 @@ int main()
 
                             int i;
                             bool validIndex = false;
-                            // Index Validation Loop
                             while (validIndex == false)
                             {
                                 cout << "\nChoose an Index to Add/Update (0-29): ";
                                 cin >> i;
-                                if (i >= 0 && i < Total_Consumers)
-                                {
-                                    validIndex = true;
-                                }
-                                else
-                                {
-                                    cout << "[!] Wrong Index! Try Again ( between 0-29 ).";
-                                }
+                                if (i >= 0 && i < Total_Consumers) { validIndex = true; }
+                                else { cout << "[!] Wrong Index! Try Again ( between 0-29 )."; }
                             }
 
                             int tempID;
                             bool validID = false;
-                            // ID Validation Loop (Unique ID check)
                             while (validID == false)
                             {
                                 cout << "Enter Unique Consumer ID: ";
@@ -253,6 +261,7 @@ int main()
                                 bool duplicate = false;
                                 for (int j = 0; j < Total_Consumers; j++)
                                 {
+<<<<<<< HEAD
                                     if (Consumers_IdArray[j] == tempID && i != j)
                                     {
                                         duplicate = true;
@@ -266,9 +275,18 @@ int main()
                                 {
                                     validID = true;
                                     Consumers_IdArray[i] = tempID;
+=======
+                                    if (Consumers_IdArray[j] == tempID && i != j) { duplicate = true; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                 }
+                                if (duplicate == true) { cout << "[!] Error: ID " << tempID << " Already Exist ...\n"; }
+                                else { validID = true; Consumers_IdArray[i] = tempID; }
                             }
+<<<<<<< HEAD
                             // others information input
+=======
+
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                             cout << "Enter Name: ";
                             cin.ignore();
                             getline(cin, Consumers_nameArray[i]);
@@ -278,30 +296,32 @@ int main()
 
                             cout << "Enter Meter Number: ";
                             cin >> meterNumber_Array[i];
+<<<<<<< HEAD
                             // Connection Type Validation Loop
+=======
+
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                             int cType;
                             bool validCType = false;
                             while (validCType == false)
                             {
                                 cout << "Enter Connection Type (1=Domestic, 2=Commercial): ";
                                 cin >> cType;
-                                if (cType == 1 || cType == 2)
-                                {
-                                    connection_TypeArray[i] = cType;
-                                    validCType = true;
-                                }
-                                else
-                                {
-                                    cout << "[!] Just Enter 1 or 2.\n";
-                                }
+                                if (cType == 1 || cType == 2) { connection_TypeArray[i] = cType; validCType = true; }
+                                else { cout << "[!] Just Enter 1 or 2.\n"; }
                             }
+<<<<<<< HEAD
                             // Active Status Validation Loop
+=======
+
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                             int aStat;
                             bool validAStat = false;
                             while (validAStat == false)
                             {
                                 cout << "Enter Status (1=Active, 0=Inactive): ";
                                 cin >> aStat;
+<<<<<<< HEAD
                                 if (aStat == 1 || aStat == 0)
                                 {
                                     active_StatusArray[i] = aStat;
@@ -343,6 +363,22 @@ int main()
                             pay_stat4[i] = 1;
                             pay_stat5[i] = 1;
                             pay_stat6[i] = 1;
+=======
+                                if (aStat == 1 || aStat == 0) { active_StatusArray[i] = aStat; validAStat = true; }
+                                else { cout << "[!] Just Enter 1 or 0.\n"; }
+                            }
+
+                            prev1[i] = 0; prev2[i] = 0; prev3[i] = 0;
+                            prev4[i] = 0; prev5[i] = 0; prev6[i] = 0;
+                            curr1[i] = 0; curr2[i] = 0; curr3[i] = 0;
+                            curr4[i] = 0; curr5[i] = 0; curr6[i] = 0;
+                            bill_m1[i] = 0; bill_m2[i] = 0; bill_m3[i] = 0;
+                            bill_m4[i] = 0; bill_m5[i] = 0; bill_m6[i] = 0;
+                            used_units1[i] = 0; used_units2[i] = 0; used_units3[i] = 0;
+                            used_units4[i] = 0; used_units5[i] = 0; used_units6[i] = 0;
+                            pay_stat1[i] = 1; pay_stat2[i] = 1; pay_stat3[i] = 1;
+                            pay_stat4[i] = 1; pay_stat5[i] = 1; pay_stat6[i] = 1;
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
 
                             cout << "\n[Success] Record updated successfully for " << Consumers_nameArray[i] << "!";
                             cout << "\nPress any key to return...";
@@ -358,11 +394,10 @@ int main()
 
                             for (int i = 0; i < Total_Consumers; i++)
                             {
-                                // just output the consumers whose Ids are not zero
                                 if (Consumers_IdArray[i] != 0)
                                 {
-                                    // 1. Print Id
                                     cout << Consumers_IdArray[i] << "\t";
+<<<<<<< HEAD
                                     // 2. Name Alignment
                                     cout << Consumers_nameArray[i];
                                     if (Consumers_nameArray[i].length() < 8)
@@ -411,6 +446,15 @@ int main()
                                     {
                                         cout << "UNPAID" << endl;
                                     }
+=======
+                                    cout << Consumers_nameArray[i];
+                                    if (Consumers_nameArray[i].length() < 8) { cout << "\t\t"; } else { cout << "\t"; }
+                                    if (connection_TypeArray[i] == 1) { cout << "Domestic\t"; } else { cout << "Commercial\t"; }
+                                    if (active_StatusArray[i] == 1) { cout << "Active  \t"; } else { cout << "Inactive\t"; }
+                                    cout << bill_m6[i] << " PKR";
+                                    if (bill_m6[i] < 1000) { cout << "\t\t"; } else { cout << "\t"; }
+                                    if (pay_stat6[i] == 1) { cout << "PAID" << endl; } else { cout << "UNPAID" << endl; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                 }
                             }
                             cout << "---------------------------------------------------------------------------------------------\n";
@@ -430,11 +474,7 @@ int main()
 
                             for (int i = 0; i < Total_Consumers; i++)
                             {
-                                if (Consumers_IdArray[i] == searchId)
-                                {
-                                    foundIndex = i;
-                                    break;
-                                }
+                                if (Consumers_IdArray[i] == searchId) { foundIndex = i; break; }
                             }
 
                             if (foundIndex != -1)
@@ -447,6 +487,7 @@ int main()
                                 }
                                 else
                                 {
+<<<<<<< HEAD
                                     // --- Find the first month that has zero current reading ---
                                     int startMonth = 0; // 0 means all 6 months already filled
                                     if (curr1[foundIndex] == 0)
@@ -463,6 +504,32 @@ int main()
                                         startMonth = 6;
 
                                     if (startMonth == 0)
+=======
+                                    if (curr1[foundIndex] != 0)
+                                    {
+                                        cout << "\n[!] WARNING: Readings already exist for " << Consumers_nameArray[foundIndex] << ".";
+                                        cout << "\nEntering new readings will OVERWRITE all existing data.";
+                                        cout << "\nAre you sure? (1=Yes, 0=No): ";
+                                        int confirm;
+                                        cin >> confirm;
+                                        if (confirm != 1)
+                                        {
+                                            cout << "\n[Cancelled] No changes made.";
+                                            getch();
+                                            continue;
+                                        }
+                                    }
+
+                                    cout << "\nConsumer: " << Consumers_nameArray[foundIndex] << endl;
+                                    int tempCurr;
+                                    bool monthFailed = false; // FIX Issue 6: track chain break
+
+                                    // --- Month 1 ---
+                                    cout << "\n--- Month 1 --- (Prev: " << prev1[foundIndex] << ")\n";
+                                    cout << "Enter Current Reading: ";
+                                    cin >> tempCurr;
+                                    if (tempCurr >= prev1[foundIndex])
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                     {
                                         cout << "\n[Info] All 6 months readings already entered for ";
                                         cout << Consumers_nameArray[foundIndex] << ".";
@@ -472,6 +539,7 @@ int main()
                                     }
                                     else
                                     {
+<<<<<<< HEAD
                                         cout << "\nConsumer: " << Consumers_nameArray[foundIndex] << endl;
                                         if (startMonth > 1)
                                             cout << "[Info] Months 1 to " << startMonth - 1 << " already entered. ";
@@ -494,6 +562,21 @@ int main()
 
                                         // MONTH 1
                                         if (startMonth <= 1)
+=======
+                                        cout << "[!] Error! Current cannot be less than previous. M1 set to prev value.\n";
+                                        curr1[foundIndex] = prev1[foundIndex];
+                                        monthFailed = true;
+                                    }
+
+                                    // --- Month 2 ---
+                                    if (curr1[foundIndex] != 0 && monthFailed == false)
+                                    {
+                                        prev2[foundIndex] = curr1[foundIndex];
+                                        cout << "\n--- Month 2 --- (Prev: " << prev2[foundIndex] << ")\n";
+                                        cout << "Enter Current Reading: ";
+                                        cin >> tempCurr;
+                                        if (tempCurr >= prev2[foundIndex])
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                         {
                                             cout << "\n--- Month 1 --- (Prev: " << prev1[foundIndex] << ")\n";
                                             cout << "Enter Current Reading: ";
@@ -643,11 +726,151 @@ int main()
                                             cout << "\n[Info] Bills calculated only for successfully entered months.";
                                         }
                                         else
+<<<<<<< HEAD
                                             cout << "\n[Success] Readings recorded and bills updated correctly!";
 
                                         cout << "\n\nPress any key to return...";
                                         getch();
                                     }
+=======
+                                        {
+                                            // FIX Issue 6: Inform user that chain has stopped
+                                            cout << "[!] Invalid! M2 reading rejected. Months 3-6 cannot be entered this session.\n";
+                                            cout << "[!] Please use Option 3 again to re-enter from this point.\n";
+                                            curr2[foundIndex] = 0;
+                                            monthFailed = true;
+                                        }
+                                    }
+
+                                    // --- Month 3 ---
+                                    if (curr2[foundIndex] != 0 && monthFailed == false)
+                                    {
+                                        prev3[foundIndex] = curr2[foundIndex];
+                                        cout << "\n--- Month 3 --- (Prev: " << prev3[foundIndex] << ")\n";
+                                        cout << "Enter Current Reading: ";
+                                        cin >> tempCurr;
+                                        if (tempCurr >= prev3[foundIndex])
+                                        {
+                                            curr3[foundIndex] = tempCurr;
+                                        }
+                                        else
+                                        {
+                                            cout << "[!] Invalid! M3 reading rejected. Months 4-6 cannot be entered this session.\n";
+                                            cout << "[!] Please use Option 3 again to re-enter from this point.\n";
+                                            curr3[foundIndex] = 0;
+                                            monthFailed = true;
+                                        }
+                                    }
+
+                                    // --- Month 4 ---
+                                    if (curr3[foundIndex] != 0 && monthFailed == false)
+                                    {
+                                        prev4[foundIndex] = curr3[foundIndex];
+                                        cout << "\n--- Month 4 --- (Prev: " << prev4[foundIndex] << ")\n";
+                                        cout << "Enter Current Reading: ";
+                                        cin >> tempCurr;
+                                        if (tempCurr >= prev4[foundIndex])
+                                        {
+                                            curr4[foundIndex] = tempCurr;
+                                        }
+                                        else
+                                        {
+                                            cout << "[!] Invalid! M4 reading rejected. Months 5-6 cannot be entered this session.\n";
+                                            cout << "[!] Please use Option 3 again to re-enter from this point.\n";
+                                            curr4[foundIndex] = 0;
+                                            monthFailed = true;
+                                        }
+                                    }
+
+                                    // --- Month 5 ---
+                                    if (curr4[foundIndex] != 0 && monthFailed == false)
+                                    {
+                                        prev5[foundIndex] = curr4[foundIndex];
+                                        cout << "\n--- Month 5 --- (Prev: " << prev5[foundIndex] << ")\n";
+                                        cout << "Enter Current Reading: ";
+                                        cin >> tempCurr;
+                                        if (tempCurr >= prev5[foundIndex])
+                                        {
+                                            curr5[foundIndex] = tempCurr;
+                                        }
+                                        else
+                                        {
+                                            cout << "[!] Invalid! M5 reading rejected. Month 6 cannot be entered this session.\n";
+                                            cout << "[!] Please use Option 3 again to re-enter from this point.\n";
+                                            curr5[foundIndex] = 0;
+                                            monthFailed = true;
+                                        }
+                                    }
+
+                                    // --- Month 6 ---
+                                    if (curr5[foundIndex] != 0 && monthFailed == false)
+                                    {
+                                        prev6[foundIndex] = curr5[foundIndex];
+                                        cout << "\n--- Month 6 --- (Prev: " << prev6[foundIndex] << ")\n";
+                                        cout << "Enter Current Reading: ";
+                                        cin >> tempCurr;
+                                        if (tempCurr >= prev6[foundIndex])
+                                        {
+                                            curr6[foundIndex] = tempCurr;
+                                        }
+                                        else
+                                        {
+                                            cout << "[!] Invalid! M6 set to 0.\n";
+                                            curr6[foundIndex] = 0;
+                                        }
+                                    }
+
+                                    // --- CALCULATION (only for entered months) ---
+                                    float rate;
+                                    if (connection_TypeArray[foundIndex] == 1) { rate = domestic_rate; }
+                                    else { rate = commercial_rate; }
+
+                                    if (curr1[foundIndex] != 0)
+                                    {
+                                        used_units1[foundIndex] = curr1[foundIndex] - prev1[foundIndex];
+                                        bill_m1[foundIndex] = (used_units1[foundIndex] * rate) * (1 + tax) + fixed_charges;
+                                    }
+                                    if (curr2[foundIndex] != 0)
+                                    {
+                                        used_units2[foundIndex] = curr2[foundIndex] - prev2[foundIndex];
+                                        bill_m2[foundIndex] = (used_units2[foundIndex] * rate) * (1 + tax) + fixed_charges;
+                                        if (pay_stat1[foundIndex] == 0) { bill_m2[foundIndex] += bill_m1[foundIndex]; }
+                                    }
+                                    if (curr3[foundIndex] != 0)
+                                    {
+                                        used_units3[foundIndex] = curr3[foundIndex] - prev3[foundIndex];
+                                        bill_m3[foundIndex] = (used_units3[foundIndex] * rate) * (1 + tax) + fixed_charges;
+                                        if (pay_stat2[foundIndex] == 0) { bill_m3[foundIndex] += bill_m2[foundIndex]; }
+                                    }
+                                    if (curr4[foundIndex] != 0)
+                                    {
+                                        used_units4[foundIndex] = curr4[foundIndex] - prev4[foundIndex];
+                                        bill_m4[foundIndex] = (used_units4[foundIndex] * rate) * (1 + tax) + fixed_charges;
+                                        if (pay_stat3[foundIndex] == 0) { bill_m4[foundIndex] += bill_m3[foundIndex]; }
+                                    }
+                                    if (curr5[foundIndex] != 0)
+                                    {
+                                        used_units5[foundIndex] = curr5[foundIndex] - prev5[foundIndex];
+                                        bill_m5[foundIndex] = (used_units5[foundIndex] * rate) * (1 + tax) + fixed_charges;
+                                        if (pay_stat4[foundIndex] == 0) { bill_m5[foundIndex] += bill_m4[foundIndex]; }
+                                    }
+                                    if (curr6[foundIndex] != 0)
+                                    {
+                                        used_units6[foundIndex] = curr6[foundIndex] - prev6[foundIndex];
+                                        bill_m6[foundIndex] = (used_units6[foundIndex] * rate) * (1 + tax) + fixed_charges;
+                                        if (pay_stat5[foundIndex] == 0) { bill_m6[foundIndex] += bill_m5[foundIndex]; }
+                                    }
+
+                                    if (monthFailed == true)
+                                    {
+                                        cout << "\n[Warning] Some months were not entered due to invalid readings.";
+                                        cout << "\n[Info] Bills calculated only for successfully entered months.";
+                                    }
+                                    else
+                                    {
+                                        cout << "\n[Success] Readings recorded and bills updated correctly!";
+                                    }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                 }
                             }
                             else
@@ -669,11 +892,7 @@ int main()
 
                             for (int i = 0; i < Total_Consumers; i++)
                             {
-                                if (Consumers_IdArray[i] == searchId)
-                                {
-                                    foundIndex = i;
-                                    break;
-                                }
+                                if (Consumers_IdArray[i] == searchId) { foundIndex = i; break; }
                             }
 
                             if (foundIndex != -1)
@@ -685,6 +904,7 @@ int main()
 
                                 if (monthChoice >= 1 && monthChoice <= 6)
                                 {
+<<<<<<< HEAD
                                     // Check Record Exist or not
                                     bool exists = true;
                                     if (monthChoice == 1 && curr1[foundIndex] == 0)
@@ -711,6 +931,15 @@ int main()
                                     {
                                         exists = false;
                                     }
+=======
+                                    bool exists = true;
+                                    if (monthChoice == 1 && curr1[foundIndex] == 0) { exists = false; }
+                                    else if (monthChoice == 2 && curr2[foundIndex] == 0) { exists = false; }
+                                    else if (monthChoice == 3 && curr3[foundIndex] == 0) { exists = false; }
+                                    else if (monthChoice == 4 && curr4[foundIndex] == 0) { exists = false; }
+                                    else if (monthChoice == 5 && curr5[foundIndex] == 0) { exists = false; }
+                                    else if (monthChoice == 6 && curr6[foundIndex] == 0) { exists = false; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
 
                                     if (exists == false)
                                     {
@@ -757,6 +986,7 @@ int main()
                                                 curr1[foundIndex] = correctedReading;
                                                 prev2[foundIndex] = curr1[foundIndex]; // cascade to M2
                                                 // cascade forward: M2 prev changed so M3 prev must also update
+<<<<<<< HEAD
                                                 if (curr2[foundIndex] != 0)
                                                 {
                                                     prev3[foundIndex] = curr2[foundIndex];
@@ -773,11 +1003,18 @@ int main()
                                                 {
                                                     prev6[foundIndex] = curr5[foundIndex];
                                                 }
+=======
+                                                if (curr2[foundIndex] != 0) { prev3[foundIndex] = curr2[foundIndex]; }
+                                                if (curr3[foundIndex] != 0) { prev4[foundIndex] = curr3[foundIndex]; }
+                                                if (curr4[foundIndex] != 0) { prev5[foundIndex] = curr4[foundIndex]; }
+                                                if (curr5[foundIndex] != 0) { prev6[foundIndex] = curr5[foundIndex]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             }
                                             else if (monthChoice == 2)
                                             {
                                                 curr2[foundIndex] = correctedReading;
                                                 prev3[foundIndex] = curr2[foundIndex];
+<<<<<<< HEAD
                                                 if (curr3[foundIndex] != 0)
                                                 {
                                                     prev4[foundIndex] = curr3[foundIndex];
@@ -790,11 +1027,17 @@ int main()
                                                 {
                                                     prev6[foundIndex] = curr5[foundIndex];
                                                 }
+=======
+                                                if (curr3[foundIndex] != 0) { prev4[foundIndex] = curr3[foundIndex]; }
+                                                if (curr4[foundIndex] != 0) { prev5[foundIndex] = curr4[foundIndex]; }
+                                                if (curr5[foundIndex] != 0) { prev6[foundIndex] = curr5[foundIndex]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             }
                                             else if (monthChoice == 3)
                                             {
                                                 curr3[foundIndex] = correctedReading;
                                                 prev4[foundIndex] = curr3[foundIndex];
+<<<<<<< HEAD
                                                 if (curr4[foundIndex] != 0)
                                                 {
                                                     prev5[foundIndex] = curr4[foundIndex];
@@ -803,15 +1046,23 @@ int main()
                                                 {
                                                     prev6[foundIndex] = curr5[foundIndex];
                                                 }
+=======
+                                                if (curr4[foundIndex] != 0) { prev5[foundIndex] = curr4[foundIndex]; }
+                                                if (curr5[foundIndex] != 0) { prev6[foundIndex] = curr5[foundIndex]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             }
                                             else if (monthChoice == 4)
                                             {
                                                 curr4[foundIndex] = correctedReading;
                                                 prev5[foundIndex] = curr4[foundIndex];
+<<<<<<< HEAD
                                                 if (curr5[foundIndex] != 0)
                                                 {
                                                     prev6[foundIndex] = curr5[foundIndex];
                                                 }
+=======
+                                                if (curr5[foundIndex] != 0) { prev6[foundIndex] = curr5[foundIndex]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             }
                                             else if (monthChoice == 5)
                                             {
@@ -824,14 +1075,8 @@ int main()
                                             }
 
                                             float rate;
-                                            if (connection_TypeArray[foundIndex] == 1)
-                                            {
-                                                rate = domestic_rate;
-                                            }
-                                            else
-                                            {
-                                                rate = commercial_rate;
-                                            }
+                                            if (connection_TypeArray[foundIndex] == 1) { rate = domestic_rate; }
+                                            else { rate = commercial_rate; }
 
                                             // FIX Issue 2: Only recalculate months that have been entered (curr != 0)
                                             if (curr1[foundIndex] != 0)
@@ -843,46 +1088,66 @@ int main()
                                             {
                                                 used_units2[foundIndex] = curr2[foundIndex] - prev2[foundIndex];
                                                 bill_m2[foundIndex] = (used_units2[foundIndex] * rate) * (1 + tax) + fixed_charges;
+<<<<<<< HEAD
                                                 if (pay_stat1[foundIndex] == 0)
                                                 {
                                                     bill_m2[foundIndex] = bill_m2[foundIndex] + bill_m1[foundIndex];
                                                 }
+=======
+                                                if (pay_stat1[foundIndex] == 0) { bill_m2[foundIndex] = bill_m2[foundIndex] + bill_m1[foundIndex]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             }
                                             if (curr3[foundIndex] != 0)
                                             {
                                                 used_units3[foundIndex] = curr3[foundIndex] - prev3[foundIndex];
                                                 bill_m3[foundIndex] = (used_units3[foundIndex] * rate) * (1 + tax) + fixed_charges;
+<<<<<<< HEAD
                                                 if (pay_stat2[foundIndex] == 0)
                                                 {
                                                     bill_m3[foundIndex] = bill_m3[foundIndex] + bill_m2[foundIndex];
                                                 }
+=======
+                                                if (pay_stat2[foundIndex] == 0) { bill_m3[foundIndex] = bill_m3[foundIndex] + bill_m2[foundIndex]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             }
                                             if (curr4[foundIndex] != 0)
                                             {
                                                 used_units4[foundIndex] = curr4[foundIndex] - prev4[foundIndex];
                                                 bill_m4[foundIndex] = (used_units4[foundIndex] * rate) * (1 + tax) + fixed_charges;
+<<<<<<< HEAD
                                                 if (pay_stat3[foundIndex] == 0)
                                                 {
                                                     bill_m4[foundIndex] = bill_m4[foundIndex] + bill_m3[foundIndex];
                                                 }
+=======
+                                                if (pay_stat3[foundIndex] == 0) { bill_m4[foundIndex] = bill_m4[foundIndex] + bill_m3[foundIndex]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             }
                                             if (curr5[foundIndex] != 0)
                                             {
                                                 used_units5[foundIndex] = curr5[foundIndex] - prev5[foundIndex];
                                                 bill_m5[foundIndex] = (used_units5[foundIndex] * rate) * (1 + tax) + fixed_charges;
+<<<<<<< HEAD
                                                 if (pay_stat4[foundIndex] == 0)
                                                 {
                                                     bill_m5[foundIndex] = bill_m5[foundIndex] + bill_m4[foundIndex];
                                                 }
+=======
+                                                if (pay_stat4[foundIndex] == 0) { bill_m5[foundIndex] = bill_m5[foundIndex] + bill_m4[foundIndex]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             }
                                             if (curr6[foundIndex] != 0)
                                             {
                                                 used_units6[foundIndex] = curr6[foundIndex] - prev6[foundIndex];
                                                 bill_m6[foundIndex] = (used_units6[foundIndex] * rate) * (1 + tax) + fixed_charges;
+<<<<<<< HEAD
                                                 if (pay_stat5[foundIndex] == 0)
                                                 {
                                                     bill_m6[foundIndex] = bill_m6[foundIndex] + bill_m5[foundIndex];
                                                 }
+=======
+                                                if (pay_stat5[foundIndex] == 0) { bill_m6[foundIndex] = bill_m6[foundIndex] + bill_m5[foundIndex]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             }
 
                                             cout << "\n[Success] Record corrected and all dependent bills updated!";
@@ -920,11 +1185,7 @@ int main()
 
                             for (int i = 0; i < Total_Consumers; i++)
                             {
-                                if (Consumers_IdArray[i] == searchId)
-                                {
-                                    foundIndex = i;
-                                    break;
-                                }
+                                if (Consumers_IdArray[i] == searchId) { foundIndex = i; break; }
                             }
 
                             if (foundIndex != -1)
@@ -938,6 +1199,7 @@ int main()
                                 {
                                     // FIX Issue 3: Prevent marking a month that has no readings
                                     bool hasReading = false;
+<<<<<<< HEAD
                                     if (monthChoice == 1 && curr1[foundIndex] != 0)
                                     {
                                         hasReading = true;
@@ -965,6 +1227,17 @@ int main()
 
                                     if (hasReading == false)
                                     {
+=======
+                                    if (monthChoice == 1 && curr1[foundIndex] != 0) { hasReading = true; }
+                                    else if (monthChoice == 2 && curr2[foundIndex] != 0) { hasReading = true; }
+                                    else if (monthChoice == 3 && curr3[foundIndex] != 0) { hasReading = true; }
+                                    else if (monthChoice == 4 && curr4[foundIndex] != 0) { hasReading = true; }
+                                    else if (monthChoice == 5 && curr5[foundIndex] != 0) { hasReading = true; }
+                                    else if (monthChoice == 6 && curr6[foundIndex] != 0) { hasReading = true; }
+
+                                    if (hasReading == false)
+                                    {
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                         cout << "\n[Error] Month " << monthChoice << " has no readings entered yet. Cannot mark payment status.";
                                     }
                                     else
@@ -975,6 +1248,7 @@ int main()
 
                                         if (newStatus == 1 || newStatus == 0)
                                         {
+<<<<<<< HEAD
                                             if (monthChoice == 1)
                                             {
                                                 pay_stat1[foundIndex] = newStatus;
@@ -1022,10 +1296,27 @@ int main()
                                                 {
                                                     pay_stat5[foundIndex] = 1;
                                                 }
+=======
+                                            if (monthChoice == 1) { pay_stat1[foundIndex] = newStatus; }
+                                            else if (monthChoice == 2) { pay_stat2[foundIndex] = newStatus; }
+                                            else if (monthChoice == 3) { pay_stat3[foundIndex] = newStatus; }
+                                            else if (monthChoice == 4) { pay_stat4[foundIndex] = newStatus; }
+                                            else if (monthChoice == 5) { pay_stat5[foundIndex] = newStatus; }
+                                            else if (monthChoice == 6) { pay_stat6[foundIndex] = newStatus; }
+
+                                            if (newStatus == 1)
+                                            {
+                                                if (monthChoice >= 2) { pay_stat1[foundIndex] = 1; }
+                                                if (monthChoice >= 3) { pay_stat2[foundIndex] = 1; }
+                                                if (monthChoice >= 4) { pay_stat3[foundIndex] = 1; }
+                                                if (monthChoice >= 5) { pay_stat4[foundIndex] = 1; }
+                                                if (monthChoice >= 6) { pay_stat5[foundIndex] = 1; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                                 cout << "\n[System Notice] All previous months marked as PAID automatically.";
                                             }
 
                                             float rate;
+<<<<<<< HEAD
                                             if (connection_TypeArray[foundIndex] == 1)
                                             {
                                                 rate = domestic_rate;
@@ -1034,6 +1325,10 @@ int main()
                                             {
                                                 rate = commercial_rate;
                                             }
+=======
+                                            if (connection_TypeArray[foundIndex] == 1) { rate = domestic_rate; }
+                                            else { rate = commercial_rate; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
 
                                             // FIX Issue 3: Only recalculate bills for months with actual readings
                                             if (curr1[foundIndex] != 0)
@@ -1043,42 +1338,62 @@ int main()
                                             if (curr2[foundIndex] != 0)
                                             {
                                                 bill_m2[foundIndex] = ((curr2[foundIndex] - prev2[foundIndex]) * rate) * (1 + tax) + fixed_charges;
+<<<<<<< HEAD
                                                 if (pay_stat1[foundIndex] == 0)
                                                 {
                                                     bill_m2[foundIndex] = bill_m2[foundIndex] + bill_m1[foundIndex];
                                                 }
+=======
+                                                if (pay_stat1[foundIndex] == 0) { bill_m2[foundIndex] = bill_m2[foundIndex] + bill_m1[foundIndex]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             }
                                             if (curr3[foundIndex] != 0)
                                             {
                                                 bill_m3[foundIndex] = ((curr3[foundIndex] - prev3[foundIndex]) * rate) * (1 + tax) + fixed_charges;
+<<<<<<< HEAD
                                                 if (pay_stat2[foundIndex] == 0)
                                                 {
                                                     bill_m3[foundIndex] = bill_m3[foundIndex] + bill_m2[foundIndex];
                                                 }
+=======
+                                                if (pay_stat2[foundIndex] == 0) { bill_m3[foundIndex] = bill_m3[foundIndex] + bill_m2[foundIndex]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             }
                                             if (curr4[foundIndex] != 0)
                                             {
                                                 bill_m4[foundIndex] = ((curr4[foundIndex] - prev4[foundIndex]) * rate) * (1 + tax) + fixed_charges;
+<<<<<<< HEAD
                                                 if (pay_stat3[foundIndex] == 0)
                                                 {
                                                     bill_m4[foundIndex] = bill_m4[foundIndex] + bill_m3[foundIndex];
                                                 }
+=======
+                                                if (pay_stat3[foundIndex] == 0) { bill_m4[foundIndex] = bill_m4[foundIndex] + bill_m3[foundIndex]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             }
                                             if (curr5[foundIndex] != 0)
                                             {
                                                 bill_m5[foundIndex] = ((curr5[foundIndex] - prev5[foundIndex]) * rate) * (1 + tax) + fixed_charges;
+<<<<<<< HEAD
                                                 if (pay_stat4[foundIndex] == 0)
                                                 {
                                                     bill_m5[foundIndex] = bill_m5[foundIndex] + bill_m4[foundIndex];
                                                 }
+=======
+                                                if (pay_stat4[foundIndex] == 0) { bill_m5[foundIndex] = bill_m5[foundIndex] + bill_m4[foundIndex]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             }
                                             if (curr6[foundIndex] != 0)
                                             {
                                                 bill_m6[foundIndex] = ((curr6[foundIndex] - prev6[foundIndex]) * rate) * (1 + tax) + fixed_charges;
+<<<<<<< HEAD
                                                 if (pay_stat5[foundIndex] == 0)
                                                 {
                                                     bill_m6[foundIndex] = bill_m6[foundIndex] + bill_m5[foundIndex];
                                                 }
+=======
+                                                if (pay_stat5[foundIndex] == 0) { bill_m6[foundIndex] = bill_m6[foundIndex] + bill_m5[foundIndex]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             }
 
                                             cout << "\n[Success] Status updated and all arrears recalculated!";
@@ -1113,11 +1428,7 @@ int main()
 
                             for (int i = 0; i < Total_Consumers; i++)
                             {
-                                if (Consumers_IdArray[i] == searchId)
-                                {
-                                    foundIndex = i;
-                                    break;
-                                }
+                                if (Consumers_IdArray[i] == searchId) { foundIndex = i; break; }
                             }
 
                             if (foundIndex != -1)
@@ -1135,6 +1446,7 @@ int main()
                                 cout << "-----------------------------------------------------------------------------\n";
 
                                 cout << "M1\t" << prev1[foundIndex] << "\t\t" << curr1[foundIndex] << "\t\t" << used_units1[foundIndex] << "\t\t" << bill_m1[foundIndex] << "\t\t";
+<<<<<<< HEAD
                                 if (pay_stat1[foundIndex] == 1)
                                 {
                                     cout << "Paid";
@@ -1198,6 +1510,29 @@ int main()
                                 {
                                     cout << "Unpaid";
                                 }
+=======
+                                if (pay_stat1[foundIndex] == 1) { cout << "Paid"; } else { cout << "Unpaid"; }
+                                cout << endl;
+
+                                cout << "M2\t" << prev2[foundIndex] << "\t\t" << curr2[foundIndex] << "\t\t" << used_units2[foundIndex] << "\t\t" << bill_m2[foundIndex] << "\t\t";
+                                if (pay_stat2[foundIndex] == 1) { cout << "Paid"; } else { cout << "Unpaid"; }
+                                cout << endl;
+
+                                cout << "M3\t" << prev3[foundIndex] << "\t\t" << curr3[foundIndex] << "\t\t" << used_units3[foundIndex] << "\t\t" << bill_m3[foundIndex] << "\t\t";
+                                if (pay_stat3[foundIndex] == 1) { cout << "Paid"; } else { cout << "Unpaid"; }
+                                cout << endl;
+
+                                cout << "M4\t" << prev4[foundIndex] << "\t\t" << curr4[foundIndex] << "\t\t" << used_units4[foundIndex] << "\t\t" << bill_m4[foundIndex] << "\t\t";
+                                if (pay_stat4[foundIndex] == 1) { cout << "Paid"; } else { cout << "Unpaid"; }
+                                cout << endl;
+
+                                cout << "M5\t" << prev5[foundIndex] << "\t\t" << curr5[foundIndex] << "\t\t" << used_units5[foundIndex] << "\t\t" << bill_m5[foundIndex] << "\t\t";
+                                if (pay_stat5[foundIndex] == 1) { cout << "Paid"; } else { cout << "Unpaid"; }
+                                cout << endl;
+
+                                cout << "M6\t" << prev6[foundIndex] << "\t\t" << curr6[foundIndex] << "\t\t" << used_units6[foundIndex] << "\t\t" << bill_m6[foundIndex] << "\t\t";
+                                if (pay_stat6[foundIndex] == 1) { cout << "Paid"; } else { cout << "Unpaid"; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                 cout << endl;
 
                                 cout << "-----------------------------------------------------------------------------\n";
@@ -1238,6 +1573,7 @@ int main()
                                         cout << "Name: " << Consumers_nameArray[i] << " | Meter #: " << meterNumber_Array[i] << endl;
                                         cout << "Address: " << adress_Array[i] << endl;
                                         cout << "Type: ";
+<<<<<<< HEAD
                                         if (connection_TypeArray[i] == 1)
                                         {
                                             cout << "Domestic" << endl;
@@ -1246,15 +1582,36 @@ int main()
                                         {
                                             cout << "Commercial" << endl;
                                         }
+=======
+                                        if (connection_TypeArray[i] == 1) { cout << "Domestic" << endl; } else { cout << "Commercial" << endl; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                         cout << "Account Status: ";
-                                        if (active_StatusArray[i] == 1)
+                                        if (active_StatusArray[i] == 1) { cout << "Active" << endl; } else { cout << "Inactive" << endl; }
+
+                                        int lastEnteredMonth = 0;
+                                        int lastUnits = 0;
+                                        float lastBill = 0;
+                                        int lastStat = 1;
+                                        if (curr1[i] != 0) { lastEnteredMonth = 1; lastUnits = used_units1[i]; lastBill = bill_m1[i]; lastStat = pay_stat1[i]; }
+                                        if (curr2[i] != 0) { lastEnteredMonth = 2; lastUnits = used_units2[i]; lastBill = bill_m2[i]; lastStat = pay_stat2[i]; }
+                                        if (curr3[i] != 0) { lastEnteredMonth = 3; lastUnits = used_units3[i]; lastBill = bill_m3[i]; lastStat = pay_stat3[i]; }
+                                        if (curr4[i] != 0) { lastEnteredMonth = 4; lastUnits = used_units4[i]; lastBill = bill_m4[i]; lastStat = pay_stat4[i]; }
+                                        if (curr5[i] != 0) { lastEnteredMonth = 5; lastUnits = used_units5[i]; lastBill = bill_m5[i]; lastStat = pay_stat5[i]; }
+                                        if (curr6[i] != 0) { lastEnteredMonth = 6; lastUnits = used_units6[i]; lastBill = bill_m6[i]; lastStat = pay_stat6[i]; }
+
+                                        if (lastEnteredMonth == 0)
                                         {
-                                            cout << "Active" << endl;
+                                            cout << "--- Billing Summary ---\n";
+                                            cout << "No readings entered yet.\n";
                                         }
                                         else
                                         {
-                                            cout << "Inactive" << endl;
+                                            cout << "--- Billing Summary (Month " << lastEnteredMonth << ") ---\n";
+                                            cout << "Units Used: " << lastUnits << " | Total Bill: " << lastBill << " PKR" << endl;
+                                            cout << "Payment: ";
+                                            if (lastStat == 1) { cout << "Paid" << endl; } else { cout << "UNPAID" << endl; }
                                         }
+<<<<<<< HEAD
 
                                         int lastEnteredMonth = 0;
                                         int lastUnits = 0;
@@ -1322,16 +1679,18 @@ int main()
                                                 cout << "UNPAID" << endl;
                                             }
                                         }
+=======
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                         found = true;
                                         break;
                                     }
                                 }
-                                if (found == false)
-                                {
-                                    cout << "\n[!] Error: Consumer ID " << sid << " not found.";
-                                }
+                                if (found == false) { cout << "\n[!] Error: Consumer ID " << sid << " not found."; }
                             }
+<<<<<<< HEAD
                             // Consumer's Full Summary
+=======
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                             else if (searchChoice == "2")
                             {
                                 int m;
@@ -1347,6 +1706,7 @@ int main()
                                         bool isUnpaid = false;
                                         float amt = 0;
                                         // FIX Issue 4: Only list if readings exist for that month
+<<<<<<< HEAD
                                         if (m == 1 && curr1[i] != 0 && pay_stat1[i] == 0)
                                         {
                                             isUnpaid = true;
@@ -1377,6 +1737,14 @@ int main()
                                             isUnpaid = true;
                                             amt = bill_m6[i];
                                         }
+=======
+                                        if (m == 1 && curr1[i] != 0 && pay_stat1[i] == 0) { isUnpaid = true; amt = bill_m1[i]; }
+                                        else if (m == 2 && curr2[i] != 0 && pay_stat2[i] == 0) { isUnpaid = true; amt = bill_m2[i]; }
+                                        else if (m == 3 && curr3[i] != 0 && pay_stat3[i] == 0) { isUnpaid = true; amt = bill_m3[i]; }
+                                        else if (m == 4 && curr4[i] != 0 && pay_stat4[i] == 0) { isUnpaid = true; amt = bill_m4[i]; }
+                                        else if (m == 5 && curr5[i] != 0 && pay_stat5[i] == 0) { isUnpaid = true; amt = bill_m5[i]; }
+                                        else if (m == 6 && curr6[i] != 0 && pay_stat6[i] == 0) { isUnpaid = true; amt = bill_m6[i]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
 
                                         if (isUnpaid == true)
                                         {
@@ -1385,12 +1753,12 @@ int main()
                                         }
                                     }
                                 }
-                                if (found == false)
-                                {
-                                    cout << "No unpaid bills found for this month.\n";
-                                }
+                                if (found == false) { cout << "No unpaid bills found for this month.\n"; }
                             }
+<<<<<<< HEAD
                             // List Unpaid Bills (By Month)
+=======
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                             else if (searchChoice == "3")
                             {
                                 int m, threshold;
@@ -1406,6 +1774,7 @@ int main()
                                     {
                                         float bill = 0;
                                         bool hasReading = false;
+<<<<<<< HEAD
                                         if (m == 1 && curr1[i] != 0)
                                         {
                                             bill = bill_m1[i];
@@ -1436,6 +1805,14 @@ int main()
                                             bill = bill_m6[i];
                                             hasReading = true;
                                         }
+=======
+                                        if (m == 1 && curr1[i] != 0) { bill = bill_m1[i]; hasReading = true; }
+                                        else if (m == 2 && curr2[i] != 0) { bill = bill_m2[i]; hasReading = true; }
+                                        else if (m == 3 && curr3[i] != 0) { bill = bill_m3[i]; hasReading = true; }
+                                        else if (m == 4 && curr4[i] != 0) { bill = bill_m4[i]; hasReading = true; }
+                                        else if (m == 5 && curr5[i] != 0) { bill = bill_m5[i]; hasReading = true; }
+                                        else if (m == 6 && curr6[i] != 0) { bill = bill_m6[i]; hasReading = true; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
 
                                         if (hasReading == true && bill > threshold)
                                         {
@@ -1444,10 +1821,7 @@ int main()
                                         }
                                     }
                                 }
-                                if (found == false)
-                                {
-                                    cout << "No records found above this threshold.\n";
-                                }
+                                if (found == false) { cout << "No records found above this threshold.\n"; }
                             }
                             // List Zero Consumption Users (By Month)
                             else if (searchChoice == "4")
@@ -1463,6 +1837,7 @@ int main()
                                     {
                                         int units = -1;
                                         // FIX: Only check consumers who have readings for that month
+<<<<<<< HEAD
                                         if (m == 1 && curr1[i] != 0)
                                         {
                                             units = used_units1[i];
@@ -1487,6 +1862,14 @@ int main()
                                         {
                                             units = used_units6[i];
                                         }
+=======
+                                        if (m == 1 && curr1[i] != 0) { units = used_units1[i]; }
+                                        else if (m == 2 && curr2[i] != 0) { units = used_units2[i]; }
+                                        else if (m == 3 && curr3[i] != 0) { units = used_units3[i]; }
+                                        else if (m == 4 && curr4[i] != 0) { units = used_units4[i]; }
+                                        else if (m == 5 && curr5[i] != 0) { units = used_units5[i]; }
+                                        else if (m == 6 && curr6[i] != 0) { units = used_units6[i]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
 
                                         if (units == 0)
                                         {
@@ -1495,10 +1878,7 @@ int main()
                                         }
                                     }
                                 }
-                                if (found == false)
-                                {
-                                    cout << "No users found with zero consumption.\n";
-                                }
+                                if (found == false) { cout << "No users found with zero consumption.\n"; }
                             }
 
                             cout << "\nPress any key to return...";
@@ -1532,6 +1912,7 @@ int main()
                             {
                                 if (Consumers_IdArray[i] != 0)
                                 {
+<<<<<<< HEAD
                                     if (curr1[i] != 0 && curr1[i] < prev1[i])
                                     {
                                         cout << "[!] ERROR: Reading Conflict M1 for ID " << Consumers_IdArray[i] << endl;
@@ -1599,6 +1980,33 @@ int main()
                                         float difference = bill_m6[i] - expectedBill;
                                         if (difference > 0.1 || difference < -0.1)
                                         {
+=======
+                                    if (curr1[i] != 0 && curr1[i] < prev1[i]) { cout << "[!] ERROR: Reading Conflict M1 for ID " << Consumers_IdArray[i] << endl; issuesFound++; }
+                                    if (curr2[i] != 0 && curr2[i] < prev2[i]) { cout << "[!] ERROR: Reading Conflict M2 for ID " << Consumers_IdArray[i] << endl; issuesFound++; }
+                                    if (curr3[i] != 0 && curr3[i] < prev3[i]) { cout << "[!] ERROR: Reading Conflict M3 for ID " << Consumers_IdArray[i] << endl; issuesFound++; }
+                                    if (curr4[i] != 0 && curr4[i] < prev4[i]) { cout << "[!] ERROR: Reading Conflict M4 for ID " << Consumers_IdArray[i] << endl; issuesFound++; }
+                                    if (curr5[i] != 0 && curr5[i] < prev5[i]) { cout << "[!] ERROR: Reading Conflict M5 for ID " << Consumers_IdArray[i] << endl; issuesFound++; }
+                                    if (curr6[i] != 0 && curr6[i] < prev6[i]) { cout << "[!] ERROR: Reading Conflict M6 for ID " << Consumers_IdArray[i] << endl; issuesFound++; }
+
+                                    if (curr6[i] != 0 && used_units6[i] < 0) { cout << "[!] ERROR: Negative Units for ID " << Consumers_IdArray[i] << endl; issuesFound++; }
+                                    if (curr6[i] != 0 && bill_m6[i] < 0) { cout << "[!] ERROR: Negative Bill for ID " << Consumers_IdArray[i] << endl; issuesFound++; }
+                                    if (active_StatusArray[i] == 0 && used_units6[i] > 0)
+                                    {
+                                        cout << "[!] POLICY: Inactive consumer ID " << Consumers_IdArray[i] << " has usage of " << used_units6[i] << " units." << endl;
+                                        issuesFound++;
+                                    }
+
+                                    if (curr6[i] != 0)
+                                    {
+                                        float currentRate;
+                                        if (connection_TypeArray[i] == 1) { currentRate = domestic_rate; } else { currentRate = commercial_rate; }
+                                        float expectedBill = (used_units6[i] * currentRate);
+                                        expectedBill = expectedBill + (expectedBill * tax) + fixed_charges;
+                                        if (pay_stat5[i] == 0) { expectedBill = expectedBill + bill_m5[i]; }
+                                        float difference = bill_m6[i] - expectedBill;
+                                        if (difference > 0.1 || difference < -0.1)
+                                        {
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             cout << "[!] MISMATCH: Bill calculation error for ID " << Consumers_IdArray[i] << endl;
                                             cout << "    Stored: " << bill_m6[i] << " | Expected: " << expectedBill << endl;
                                             issuesFound++;
@@ -1607,6 +2015,7 @@ int main()
                                 }
                             }
 
+<<<<<<< HEAD
                             if (issuesFound == 0)
                             {
                                 cout << ">>> All checks passed! No data conflicts found.\n";
@@ -1616,6 +2025,10 @@ int main()
                                 cout << "\n----------------------------------------------------\n";
                                 cout << "TOTAL ISSUES DETECTED: " << issuesFound << endl;
                             }
+=======
+                            if (issuesFound == 0) { cout << ">>> All checks passed! No data conflicts found.\n"; }
+                            else { cout << "\n----------------------------------------------------\n"; cout << "TOTAL ISSUES DETECTED: " << issuesFound << endl; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
 
                             cout << "\nPress any key to return to Manager Menu...";
                             getch();
@@ -1651,6 +2064,7 @@ int main()
                                             bool hasReading = false;
 
                                             // FIX Issue 4: Only count consumers who have readings for that month
+<<<<<<< HEAD
                                             if (m == 1 && curr1[i] != 0)
                                             {
                                                 currentBill = bill_m1[i];
@@ -1687,14 +2101,26 @@ int main()
                                                 currentStat = pay_stat6[i];
                                                 hasReading = true;
                                             }
+=======
+                                            if (m == 1 && curr1[i] != 0) { currentBill = bill_m1[i]; currentStat = pay_stat1[i]; hasReading = true; }
+                                            else if (m == 2 && curr2[i] != 0) { currentBill = bill_m2[i]; currentStat = pay_stat2[i]; hasReading = true; }
+                                            else if (m == 3 && curr3[i] != 0) { currentBill = bill_m3[i]; currentStat = pay_stat3[i]; hasReading = true; }
+                                            else if (m == 4 && curr4[i] != 0) { currentBill = bill_m4[i]; currentStat = pay_stat4[i]; hasReading = true; }
+                                            else if (m == 5 && curr5[i] != 0) { currentBill = bill_m5[i]; currentStat = pay_stat5[i]; hasReading = true; }
+                                            else if (m == 6 && curr6[i] != 0) { currentBill = bill_m6[i]; currentStat = pay_stat6[i]; hasReading = true; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
 
                                             if (hasReading == true)
                                             {
                                                 totalRev = totalRev + currentBill;
+<<<<<<< HEAD
                                                 if (currentStat == 0)
                                                 {
                                                     totalUnpaid = totalUnpaid + currentBill;
                                                 }
+=======
+                                                if (currentStat == 0) { totalUnpaid = totalUnpaid + currentBill; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             }
                                         }
                                     }
@@ -1720,6 +2146,7 @@ int main()
                                     {
                                         float b = 0;
                                         bool hasReading = false;
+<<<<<<< HEAD
                                         if (m == 1 && curr1[i] != 0)
                                         {
                                             b = bill_m1[i];
@@ -1773,16 +2200,36 @@ int main()
                                                     lowestBill = b;
                                                     lowID = Consumers_IdArray[i];
                                                 }
+=======
+                                        if (m == 1 && curr1[i] != 0) { b = bill_m1[i]; hasReading = true; }
+                                        else if (m == 2 && curr2[i] != 0) { b = bill_m2[i]; hasReading = true; }
+                                        else if (m == 3 && curr3[i] != 0) { b = bill_m3[i]; hasReading = true; }
+                                        else if (m == 4 && curr4[i] != 0) { b = bill_m4[i]; hasReading = true; }
+                                        else if (m == 5 && curr5[i] != 0) { b = bill_m5[i]; hasReading = true; }
+                                        else if (m == 6 && curr6[i] != 0) { b = bill_m6[i]; hasReading = true; }
+
+                                        if (hasReading == true)
+                                        {
+                                            if (firstFound == false) { highestBill = b; lowestBill = b; highID = Consumers_IdArray[i]; lowID = Consumers_IdArray[i]; firstFound = true; }
+                                            else
+                                            {
+                                                if (b > highestBill) { highestBill = b; highID = Consumers_IdArray[i]; }
+                                                if (b < lowestBill) { lowestBill = b; lowID = Consumers_IdArray[i]; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                             }
                                         }
                                     }
                                 }
 
                                 cout << "\n--- Month " << m << " Report ---" << endl;
+<<<<<<< HEAD
                                 if (firstFound == false)
                                 {
                                     cout << "No readings found for this month." << endl;
                                 }
+=======
+                                if (firstFound == false) { cout << "No readings found for this month." << endl; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                 else
                                 {
                                     cout << "Highest Bill: " << highestBill << " PKR (Consumer ID: " << highID << ")" << endl;
@@ -1801,6 +2248,7 @@ int main()
                                         int totalU = used_units1[i] + used_units2[i] + used_units3[i] + used_units4[i] + used_units5[i] + used_units6[i];
                                         float totalB = bill_m1[i] + bill_m2[i] + bill_m3[i] + bill_m4[i] + bill_m5[i] + bill_m6[i];
                                         cout << Consumers_IdArray[i] << "\t" << Consumers_nameArray[i];
+<<<<<<< HEAD
                                         if (Consumers_nameArray[i].length() < 8)
                                         {
                                             cout << "\t\t";
@@ -1809,6 +2257,9 @@ int main()
                                         {
                                             cout << "\t";
                                         }
+=======
+                                        if (Consumers_nameArray[i].length() < 8) { cout << "\t\t"; } else { cout << "\t"; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                         cout << totalU << "\t\t" << totalB << endl;
                                     }
                                 }
@@ -1828,6 +2279,7 @@ int main()
                                     {
                                         int u = -1;
                                         // FIX: Only count consumers who have readings for that month
+<<<<<<< HEAD
                                         if (m == 1 && curr1[i] != 0)
                                         {
                                             u = used_units1[i];
@@ -1863,6 +2315,18 @@ int main()
                                             {
                                                 highCount++;
                                             }
+=======
+                                        if (m == 1 && curr1[i] != 0) { u = used_units1[i]; }
+                                        else if (m == 2 && curr2[i] != 0) { u = used_units2[i]; }
+                                        else if (m == 3 && curr3[i] != 0) { u = used_units3[i]; }
+                                        else if (m == 4 && curr4[i] != 0) { u = used_units4[i]; }
+                                        else if (m == 5 && curr5[i] != 0) { u = used_units5[i]; }
+                                        else if (m == 6 && curr6[i] != 0) { u = used_units6[i]; }
+
+                                        if (u >= 0)
+                                        {
+                                            if (u <= 200) { lowCount++; } else { highCount++; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                                         }
                                     }
                                 }
@@ -1886,25 +2350,14 @@ int main()
 
                             for (int i = 0; i < Total_Consumers; i++)
                             {
-                                if (Consumers_IdArray[i] == searchId)
-                                {
-                                    foundIndex = i;
-                                    break;
-                                }
+                                if (Consumers_IdArray[i] == searchId) { foundIndex = i; break; }
                             }
 
                             if (foundIndex != -1)
                             {
                                 cout << "\nConsumer: " << Consumers_nameArray[foundIndex] << endl;
                                 cout << "Current Status: ";
-                                if (active_StatusArray[foundIndex] == 1)
-                                {
-                                    cout << "ACTIVE" << endl;
-                                }
-                                else
-                                {
-                                    cout << "INACTIVE" << endl;
-                                }
+                                if (active_StatusArray[foundIndex] == 1) { cout << "ACTIVE" << endl; } else { cout << "INACTIVE" << endl; }
 
                                 int newStat;
                                 cout << "\nEnter New Status (1 for ACTIVE, 0 for INACTIVE): ";
@@ -1914,14 +2367,7 @@ int main()
                                 {
                                     active_StatusArray[foundIndex] = newStat;
                                     cout << "\n[Success] Account status updated to ";
-                                    if (newStat == 1)
-                                    {
-                                        cout << "ACTIVE.";
-                                    }
-                                    else
-                                    {
-                                        cout << "INACTIVE.";
-                                    }
+                                    if (newStat == 1) { cout << "ACTIVE."; } else { cout << "INACTIVE."; }
                                 }
                                 else
                                 {
@@ -1974,11 +2420,7 @@ int main()
 
             for (int i = 0; i < Total_Consumers; i++)
             {
-                if (Consumers_IdArray[i] == id)
-                {
-                    foundIndex = i;
-                    break;
-                }
+                if (Consumers_IdArray[i] == id) { foundIndex = i; break; }
             }
 
             if (foundIndex != -1)
@@ -1988,7 +2430,11 @@ int main()
                 {
                     system("cls");
                     cout << "\n--- Welcome, " << Consumers_nameArray[foundIndex] << " ---\n";
+<<<<<<< HEAD
                     cout << "1. View Current Bill (Latest Month)\n"; // FIX Label updated
+=======
+                    cout << "1. View Current Bill (Latest Month)\n"; // FIX Issue 5: Label updated
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                     cout << "2. View 6-Month Billing History\n";
                     cout << "3. View My Account Details\n";
                     cout << "4. GO Back To Main Menu\n";
@@ -2000,11 +2446,16 @@ int main()
                     {
                         system("cls");
 
+<<<<<<< HEAD
                         // Find last entered month instead of always showing Month 6
+=======
+                        // FIX Issue 5: Find last entered month instead of always showing Month 6
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                         int lastEnteredMonth = 0;
                         int lastUnits = 0;
                         float lastBill = 0;
                         int lastStat = 1;
+<<<<<<< HEAD
                         if (curr1[foundIndex] != 0)
                         {
                             lastEnteredMonth = 1;
@@ -2050,6 +2501,17 @@ int main()
 
                         if (lastEnteredMonth == 0)
                         {
+=======
+                        if (curr1[foundIndex] != 0) { lastEnteredMonth = 1; lastUnits = used_units1[foundIndex]; lastBill = bill_m1[foundIndex]; lastStat = pay_stat1[foundIndex]; }
+                        if (curr2[foundIndex] != 0) { lastEnteredMonth = 2; lastUnits = used_units2[foundIndex]; lastBill = bill_m2[foundIndex]; lastStat = pay_stat2[foundIndex]; }
+                        if (curr3[foundIndex] != 0) { lastEnteredMonth = 3; lastUnits = used_units3[foundIndex]; lastBill = bill_m3[foundIndex]; lastStat = pay_stat3[foundIndex]; }
+                        if (curr4[foundIndex] != 0) { lastEnteredMonth = 4; lastUnits = used_units4[foundIndex]; lastBill = bill_m4[foundIndex]; lastStat = pay_stat4[foundIndex]; }
+                        if (curr5[foundIndex] != 0) { lastEnteredMonth = 5; lastUnits = used_units5[foundIndex]; lastBill = bill_m5[foundIndex]; lastStat = pay_stat5[foundIndex]; }
+                        if (curr6[foundIndex] != 0) { lastEnteredMonth = 6; lastUnits = used_units6[foundIndex]; lastBill = bill_m6[foundIndex]; lastStat = pay_stat6[foundIndex]; }
+
+                        if (lastEnteredMonth == 0)
+                        {
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                             cout << "\n>>> LATEST BILL <<<\n";
                             cout << "No readings have been entered for your account yet.\n";
                         }
@@ -2059,6 +2521,7 @@ int main()
                             cout << "Units Consumed: " << lastUnits << endl;
                             cout << "Total Amount (Inc. Taxes & Arrears): " << lastBill << " PKR" << endl;
                             cout << "Status: ";
+<<<<<<< HEAD
                             if (lastStat == 1)
                             {
                                 cout << "PAID" << endl;
@@ -2067,6 +2530,9 @@ int main()
                             {
                                 cout << "UNPAID" << endl;
                             }
+=======
+                            if (lastStat == 1) { cout << "PAID" << endl; } else { cout << "UNPAID" << endl; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                         }
 
                         cout << "\nPress Any key to go back...";
@@ -2081,69 +2547,27 @@ int main()
                         cout << "--------------------------------\n";
 
                         cout << "M1\t" << bill_m1[foundIndex] << " PKR\t";
-                        if (pay_stat1[foundIndex] == 1)
-                        {
-                            cout << "Paid";
-                        }
-                        else
-                        {
-                            cout << "Unpaid";
-                        }
+                        if (pay_stat1[foundIndex] == 1) { cout << "Paid"; } else { cout << "Unpaid"; }
                         cout << endl;
 
                         cout << "M2\t" << bill_m2[foundIndex] << " PKR\t";
-                        if (pay_stat2[foundIndex] == 1)
-                        {
-                            cout << "Paid";
-                        }
-                        else
-                        {
-                            cout << "Unpaid";
-                        }
+                        if (pay_stat2[foundIndex] == 1) { cout << "Paid"; } else { cout << "Unpaid"; }
                         cout << endl;
 
                         cout << "M3\t" << bill_m3[foundIndex] << " PKR\t";
-                        if (pay_stat3[foundIndex] == 1)
-                        {
-                            cout << "Paid";
-                        }
-                        else
-                        {
-                            cout << "Unpaid";
-                        }
+                        if (pay_stat3[foundIndex] == 1) { cout << "Paid"; } else { cout << "Unpaid"; }
                         cout << endl;
 
                         cout << "M4\t" << bill_m4[foundIndex] << " PKR\t";
-                        if (pay_stat4[foundIndex] == 1)
-                        {
-                            cout << "Paid";
-                        }
-                        else
-                        {
-                            cout << "Unpaid";
-                        }
+                        if (pay_stat4[foundIndex] == 1) { cout << "Paid"; } else { cout << "Unpaid"; }
                         cout << endl;
 
                         cout << "M5\t" << bill_m5[foundIndex] << " PKR\t";
-                        if (pay_stat5[foundIndex] == 1)
-                        {
-                            cout << "Paid";
-                        }
-                        else
-                        {
-                            cout << "Unpaid";
-                        }
+                        if (pay_stat5[foundIndex] == 1) { cout << "Paid"; } else { cout << "Unpaid"; }
                         cout << endl;
 
                         cout << "M6\t" << bill_m6[foundIndex] << " PKR\t";
-                        if (pay_stat6[foundIndex] == 1)
-                        {
-                            cout << "Paid";
-                        }
-                        else
-                        {
-                            cout << "Unpaid";
-                        }
+                        if (pay_stat6[foundIndex] == 1) { cout << "Paid"; } else { cout << "Unpaid"; }
                         cout << endl;
 
                         cout << "\nPress Any key to go back...";
@@ -2158,6 +2582,7 @@ int main()
                         cout << "Meter Number: " << meterNumber_Array[foundIndex] << endl;
                         cout << "Address: " << adress_Array[foundIndex] << endl;
                         cout << "Connection: ";
+<<<<<<< HEAD
                         if (connection_TypeArray[foundIndex] == 1)
                         {
                             cout << "Domestic" << endl;
@@ -2166,19 +2591,16 @@ int main()
                         {
                             cout << "Commercial" << endl;
                         }
+=======
+                        if (connection_TypeArray[foundIndex] == 1) { cout << "Domestic" << endl; } else { cout << "Commercial" << endl; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                         cout << "Account Status: ";
-                        if (active_StatusArray[foundIndex] == 1)
-                        {
-                            cout << "Active" << endl;
-                        }
-                        else
-                        {
-                            cout << "Inactive" << endl;
-                        }
+                        if (active_StatusArray[foundIndex] == 1) { cout << "Active" << endl; } else { cout << "Inactive" << endl; }
 
                         cout << "\nPress Any key to go back...";
                         getch();
                     }
+<<<<<<< HEAD
                     // GO Back To Main Menu
                     else if (consumerChoice == "4")
                     {
@@ -2193,6 +2615,11 @@ int main()
                     {
                         cout << "Invalid Option! Try again.\n";
                     }
+=======
+                    else if (consumerChoice == "4") { break; }
+                    else if (consumerChoice == "5") { cout << "Logging out...\n"; break; }
+                    else { cout << "Invalid Option! Try again.\n"; }
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
                 }
             }
             else
@@ -2212,7 +2639,11 @@ int main()
         }
     }
 
+<<<<<<< HEAD
     cout << endl
          << " Thanks for using this software";
+=======
+    cout << endl << " Thanks for using this software";
+>>>>>>> ad5e14e293fd6fb8dbf6871386c28b949e549631
     return 0;
 }
