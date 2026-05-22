@@ -1,6 +1,7 @@
 #include <iostream>
 #include <conio.h>
 #include <string>
+#include <fstream>
 using namespace std;
 
 // ============================================================
@@ -34,9 +35,9 @@ int curr3[Total_Consumers] = {250, 265, 280, 295, 310, 325, 340, 355, 370, 385};
 int curr4[Total_Consumers] = {300, 315, 330, 345, 360, 375, 390, 405, 420, 435};
 int curr5[Total_Consumers] = {350, 365, 380, 395, 410, 425, 440, 455, 470, 485};
 int curr6[Total_Consumers] = {400, 415, 430, 445, 460, 475, 490, 505, 520, 535};
-
 // Units Used
 int used_units1[Total_Consumers], used_units2[Total_Consumers], used_units3[Total_Consumers];
+
 int used_units4[Total_Consumers], used_units5[Total_Consumers], used_units6[Total_Consumers];
 
 // Payment Status (1=Paid, 0=Unpaid)
@@ -58,12 +59,34 @@ float tax = 0.15;
 float fixed_charges = 500.0;
 
 // ============================================================
+//                    FILE NAMES
+// ============================================================
+
+const string FILE_CONSUMERS = "consumers.txt";
+const string FILE_READINGS = "readings.txt";
+const string FILE_BILLS = "bills.txt";
+const string FILE_PAYMENT = "payments.txt";
+const string FILE_REPORT = "report.txt";
+const string FILE_RECEIPT = "bill_receipt.txt";
+const string FILE_LOG = "system_log.txt";
+const string FILE_EXPORT = "all_consumers_export.txt";
+
+// ============================================================
 //                  FUNCTION PROTOTYPES
 // ============================================================
 
 void initializeData();
 void calculateAllBills();
 void initializeEmptySlots();
+
+// FILE HANDLING PROTOTYPES
+void saveAllDataToFile();
+void loadAllDataFromFile();
+void exportBillingHistoryToFile(int foundIndex);
+void exportAllConsumersToFile();
+void exportReportToFile();
+void exportBillReceiptToFile(int foundIndex);
+void appendLogEntry(string message);
 
 // Manager Functions
 bool managerLogin();
@@ -99,6 +122,9 @@ int main()
 {
     initializeData();
 
+    // FILE HANDLING
+    loadAllDataFromFile();
+
     while (true)
     {
         system("cls");
@@ -126,6 +152,9 @@ int main()
         }
         else if (userOption == "3")
         {
+            // FILE HANDLING
+            saveAllDataToFile();
+            appendLogEntry("System exited. Data saved successfully.");
             break;
         }
         else
@@ -143,7 +172,6 @@ int main()
 //                  FUNCTION DEFINITIONS
 // ============================================================
 
-// --- Initialize hardcoded data and calculate initial bills ---
 void initializeData()
 {
     for (int i = 0; i < 10; i++)
@@ -159,7 +187,6 @@ void initializeData()
     calculateAllBills();
 }
 
-// --- Set all empty slots (index 10-29) to default zero values ---
 void initializeEmptySlots()
 {
     for (int i = 10; i < Total_Consumers; i++)
@@ -176,7 +203,6 @@ void initializeEmptySlots()
     }
 }
 
-// --- Calculate bills for all 10 hardcoded consumers ---
 void calculateAllBills()
 {
     for (int i = 0; i < 10; i++)
@@ -201,20 +227,14 @@ void calculateAllBills()
     }
 }
 
-// --- Get electricity rate for a consumer ---
 float getRate(int i)
 {
     if (connection_TypeArray[i] == 1)
-    {
         return domestic_rate;
-    }
     else
-    {
         return commercial_rate;
-    }
 }
 
-// --- Find consumer index by ID, return -1 if not found ---
 int findConsumer(int id)
 {
     for (int i = 0; i < Total_Consumers; i++)
@@ -223,7 +243,6 @@ int findConsumer(int id)
     return -1;
 }
 
-// --- Get the last month for which a reading has been entered ---
 int getLastEnteredMonth(int i)
 {
     if (curr6[i] != 0)
@@ -241,7 +260,6 @@ int getLastEnteredMonth(int i)
     return 0;
 }
 
-// --- Recalculate all bills for a consumer (only entered months) ---
 void recalculateBills(int i)
 {
     float rate = getRate(i);
@@ -288,6 +306,553 @@ void recalculateBills(int i)
 }
 
 // ============================================================
+//       FILE HANDLING FUNCTIONS
+// ============================================================
+
+// --- Save all data to txt files ---
+void saveAllDataToFile()
+{
+    // ---- Save consumers.txt ----
+    fstream consFile;
+    consFile.open(FILE_CONSUMERS, ios::out);
+    if (consFile.is_open())
+    {
+        consFile << "=== CONSUMER RECORDS ===\n";
+        consFile << "Index|ID|MeterNo|Name|Address|ConnectionType|ActiveStatus\n";
+        consFile << "-----------------------------------------------------------\n";
+        for (int i = 0; i < Total_Consumers; i++)
+        {
+            consFile << i << "|"
+                     << Consumers_IdArray[i] << "|"
+                     << meterNumber_Array[i] << "|"
+                     << Consumers_nameArray[i] << "|"
+                     << adress_Array[i] << "|"
+                     << connection_TypeArray[i] << "|"
+                     << active_StatusArray[i] << "\n";
+        }
+        consFile.close();
+    }
+
+    // ---- Save readings.txt ----
+    fstream readFile;
+    readFile.open(FILE_READINGS, ios::out);
+    if (readFile.is_open())
+    {
+        readFile << "=== MONTHLY READINGS ===\n";
+        readFile << "Index|ID|Prev1|Curr1|Used1|Prev2|Curr2|Used2|Prev3|Curr3|Used3|Prev4|Curr4|Used4|Prev5|Curr5|Used5|Prev6|Curr6|Used6\n";
+        readFile << "-----------------------------------------------------------\n";
+        for (int i = 0; i < Total_Consumers; i++)
+        {
+            readFile << i << "|" << Consumers_IdArray[i] << "|"
+                     << prev1[i] << "|" << curr1[i] << "|" << used_units1[i] << "|"
+                     << prev2[i] << "|" << curr2[i] << "|" << used_units2[i] << "|"
+                     << prev3[i] << "|" << curr3[i] << "|" << used_units3[i] << "|"
+                     << prev4[i] << "|" << curr4[i] << "|" << used_units4[i] << "|"
+                     << prev5[i] << "|" << curr5[i] << "|" << used_units5[i] << "|"
+                     << prev6[i] << "|" << curr6[i] << "|" << used_units6[i] << "\n";
+        }
+        readFile.close();
+    }
+
+    // ---- Save bills.txt ----
+    fstream billFile;
+    billFile.open(FILE_BILLS, ios::out);
+    if (billFile.is_open())
+    {
+        billFile << "=== BILL RECORDS ===\n";
+        billFile << "Index|ID|Bill_M1|Bill_M2|Bill_M3|Bill_M4|Bill_M5|Bill_M6\n";
+        billFile << "-----------------------------------------------------------\n";
+        for (int i = 0; i < Total_Consumers; i++)
+        {
+            billFile << i << "|" << Consumers_IdArray[i] << "|"
+                     << bill_m1[i] << "|" << bill_m2[i] << "|"
+                     << bill_m3[i] << "|" << bill_m4[i] << "|"
+                     << bill_m5[i] << "|" << bill_m6[i] << "\n";
+        }
+        billFile.close();
+    }
+
+    // ---- Save payments.txt ----
+    fstream payFile;
+    payFile.open(FILE_PAYMENT, ios::out);
+    if (payFile.is_open())
+    {
+        payFile << "=== PAYMENT STATUS RECORDS ===\n";
+        payFile << "Index|ID|Pay_M1|Pay_M2|Pay_M3|Pay_M4|Pay_M5|Pay_M6\n";
+        payFile << "-----------------------------------------------------------\n";
+        for (int i = 0; i < Total_Consumers; i++)
+        {
+            payFile << i << "|" << Consumers_IdArray[i] << "|"
+                    << pay_stat1[i] << "|" << pay_stat2[i] << "|"
+                    << pay_stat3[i] << "|" << pay_stat4[i] << "|"
+                    << pay_stat5[i] << "|" << pay_stat6[i] << "\n";
+        }
+        payFile.close();
+    }
+
+    cout << "\n[File] All data saved to txt files successfully.\n";
+}
+
+// --- Load all data from txt files ---
+void loadAllDataFromFile()
+{
+    // ---- Load consumers.txt ----
+    fstream consFile;
+    consFile.open(FILE_CONSUMERS, ios::in);
+    if (consFile.is_open())
+    {
+        string line;
+        // Skip 3 header lines
+        getline(consFile, line);
+        getline(consFile, line);
+        getline(consFile, line);
+
+        while (!consFile.eof())
+        {
+            getline(consFile, line);
+            if (line.empty())
+                continue;
+
+            // Parse: Index|ID|MeterNo|Name|Address|ConnectionType|ActiveStatus
+            int idx = 0, pos = 0;
+
+            pos = line.find('|');
+            idx = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            if (idx < 0 || idx >= Total_Consumers)
+                continue;
+
+            pos = line.find('|');
+            Consumers_IdArray[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+
+            pos = line.find('|');
+            meterNumber_Array[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+
+            pos = line.find('|');
+            Consumers_nameArray[idx] = line.substr(0, pos);
+            line = line.substr(pos + 1);
+
+            pos = line.find('|');
+            adress_Array[idx] = line.substr(0, pos);
+            line = line.substr(pos + 1);
+
+            pos = line.find('|');
+            connection_TypeArray[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+
+            active_StatusArray[idx] = stoi(line);
+        }
+        consFile.close();
+    }
+
+    // ---- Load readings.txt ----
+    fstream readFile;
+    readFile.open(FILE_READINGS, ios::in);
+    if (readFile.is_open())
+    {
+        string line;
+        getline(readFile, line);
+        getline(readFile, line);
+        getline(readFile, line);
+
+        while (!readFile.eof())
+        {
+            getline(readFile, line);
+            if (line.empty())
+                continue;
+
+            // Parse: Index|ID|Prev1|Curr1|Used1|...|Prev6|Curr6|Used6
+            int idx = 0, pos = 0;
+
+            pos = line.find('|');
+            idx = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            if (idx < 0 || idx >= Total_Consumers)
+                continue;
+
+            pos = line.find('|');
+            line = line.substr(pos + 1); // skip ID
+
+            pos = line.find('|');
+            prev1[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            curr1[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            used_units1[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+
+            pos = line.find('|');
+            prev2[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            curr2[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            used_units2[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+
+            pos = line.find('|');
+            prev3[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            curr3[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            used_units3[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+
+            pos = line.find('|');
+            prev4[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            curr4[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            used_units4[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+
+            pos = line.find('|');
+            prev5[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            curr5[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            used_units5[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+
+            pos = line.find('|');
+            prev6[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            curr6[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            used_units6[idx] = stoi(line);
+        }
+        readFile.close();
+    }
+
+    // ---- Load bills.txt ----
+    fstream billFile;
+    billFile.open(FILE_BILLS, ios::in);
+    if (billFile.is_open())
+    {
+        string line;
+        getline(billFile, line);
+        getline(billFile, line);
+        getline(billFile, line);
+
+        while (!billFile.eof())
+        {
+            getline(billFile, line);
+            if (line.empty())
+                continue;
+
+            int idx = 0, pos = 0;
+
+            pos = line.find('|');
+            idx = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            if (idx < 0 || idx >= Total_Consumers)
+                continue;
+
+            pos = line.find('|');
+            line = line.substr(pos + 1); // skip ID
+
+            pos = line.find('|');
+            bill_m1[idx] = stof(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            bill_m2[idx] = stof(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            bill_m3[idx] = stof(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            bill_m4[idx] = stof(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            bill_m5[idx] = stof(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            bill_m6[idx] = stof(line);
+        }
+        billFile.close();
+    }
+
+    // ---- Load payments.txt ----
+    fstream payFile;
+    payFile.open(FILE_PAYMENT, ios::in);
+    if (payFile.is_open())
+    {
+        string line;
+        getline(payFile, line);
+        getline(payFile, line);
+        getline(payFile, line);
+
+        while (!payFile.eof())
+        {
+            getline(payFile, line);
+            if (line.empty())
+                continue;
+
+            int idx = 0, pos = 0;
+
+            pos = line.find('|');
+            idx = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            if (idx < 0 || idx >= Total_Consumers)
+                continue;
+
+            pos = line.find('|');
+            line = line.substr(pos + 1); // skip ID
+
+            pos = line.find('|');
+            pay_stat1[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            pay_stat2[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            pay_stat3[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            pay_stat4[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pos = line.find('|');
+            pay_stat5[idx] = stoi(line.substr(0, pos));
+            line = line.substr(pos + 1);
+            pay_stat6[idx] = stoi(line);
+        }
+        payFile.close();
+        cout << "[File] Saved data loaded from txt files successfully.\n";
+    }
+}
+
+// --- Export bill receipt for a consumer ---
+void exportBillReceiptToFile(int foundIndex)
+{
+    fstream receiptFile;
+    receiptFile.open(FILE_RECEIPT, ios::out);
+    if (receiptFile.is_open())
+    {
+        receiptFile << "===========================================================\n";
+        receiptFile << "              ELECTRICITY BILL RECEIPT                     \n";
+        receiptFile << "===========================================================\n";
+        receiptFile << "Consumer ID   : " << Consumers_IdArray[foundIndex] << "\n";
+        receiptFile << "Name          : " << Consumers_nameArray[foundIndex] << "\n";
+        receiptFile << "Address       : " << adress_Array[foundIndex] << "\n";
+        receiptFile << "Meter Number  : " << meterNumber_Array[foundIndex] << "\n";
+
+        if (connection_TypeArray[foundIndex] == 1)
+            receiptFile << "Connection    : Domestic\n";
+        else
+            receiptFile << "Connection    : Commercial\n";
+
+        if (active_StatusArray[foundIndex] == 1)
+            receiptFile << "Account Status: Active\n";
+        else
+            receiptFile << "Account Status: Inactive\n";
+
+        receiptFile << "-----------------------------------------------------------\n";
+        receiptFile << "Month\tPrev\tCurr\tUnits\tBill (PKR)\tStatus\n";
+        receiptFile << "-----------------------------------------------------------\n";
+
+        int prevArr[6] = {prev1[foundIndex], prev2[foundIndex], prev3[foundIndex], prev4[foundIndex], prev5[foundIndex], prev6[foundIndex]};
+        int currArr[6] = {curr1[foundIndex], curr2[foundIndex], curr3[foundIndex], curr4[foundIndex], curr5[foundIndex], curr6[foundIndex]};
+        int usedArr[6] = {used_units1[foundIndex], used_units2[foundIndex], used_units3[foundIndex], used_units4[foundIndex], used_units5[foundIndex], used_units6[foundIndex]};
+        float billArr[6] = {bill_m1[foundIndex], bill_m2[foundIndex], bill_m3[foundIndex], bill_m4[foundIndex], bill_m5[foundIndex], bill_m6[foundIndex]};
+        int statArr[6] = {pay_stat1[foundIndex], pay_stat2[foundIndex], pay_stat3[foundIndex], pay_stat4[foundIndex], pay_stat5[foundIndex], pay_stat6[foundIndex]};
+
+        for (int m = 0; m < 6; m++)
+        {
+            receiptFile << "M" << m + 1 << "\t"
+                        << prevArr[m] << "\t"
+                        << currArr[m] << "\t"
+                        << usedArr[m] << "\t"
+                        << billArr[m] << "\t\t";
+            if (statArr[m] == 1)
+                receiptFile << "Paid\n";
+            else
+                receiptFile << "Unpaid\n";
+        }
+        receiptFile << "===========================================================\n";
+        receiptFile.close();
+        cout << "\n[File] Bill receipt saved to '" << FILE_RECEIPT << "'\n";
+    }
+}
+
+// ---  Export billing history for one consumer ---
+void exportBillingHistoryToFile(int foundIndex)
+{
+    string histFileName = "history_" + to_string(Consumers_IdArray[foundIndex]) + ".txt";
+
+    fstream histFile;
+    histFile.open(histFileName, ios::out);
+    if (histFile.is_open())
+    {
+        histFile << "Billing History for: " << Consumers_nameArray[foundIndex]
+                 << " (ID: " << Consumers_IdArray[foundIndex] << ")\n";
+        histFile << "Month\tPrev\tCurr\tUnits\tBill\tStatus\n";
+        histFile << "------------------------------------------------------\n";
+
+        int prevArr[6] = {prev1[foundIndex], prev2[foundIndex], prev3[foundIndex], prev4[foundIndex], prev5[foundIndex], prev6[foundIndex]};
+        int currArr[6] = {curr1[foundIndex], curr2[foundIndex], curr3[foundIndex], curr4[foundIndex], curr5[foundIndex], curr6[foundIndex]};
+        int usedArr[6] = {used_units1[foundIndex], used_units2[foundIndex], used_units3[foundIndex], used_units4[foundIndex], used_units5[foundIndex], used_units6[foundIndex]};
+        float billArr[6] = {bill_m1[foundIndex], bill_m2[foundIndex], bill_m3[foundIndex], bill_m4[foundIndex], bill_m5[foundIndex], bill_m6[foundIndex]};
+        int statArr[6] = {pay_stat1[foundIndex], pay_stat2[foundIndex], pay_stat3[foundIndex], pay_stat4[foundIndex], pay_stat5[foundIndex], pay_stat6[foundIndex]};
+
+        for (int m = 0; m < 6; m++)
+        {
+            histFile << "M" << m + 1 << "\t"
+                     << prevArr[m] << "\t"
+                     << currArr[m] << "\t"
+                     << usedArr[m] << "\t"
+                     << billArr[m] << "\t";
+            if (statArr[m] == 1)
+                histFile << "Paid\n";
+            else
+                histFile << "Unpaid\n";
+        }
+        histFile.close();
+        cout << "\n[File] Billing history exported to '" << histFileName << "'\n";
+    }
+}
+
+// --- WRITE (ios::out): Export all consumers list to txt ---
+void exportAllConsumersToFile()
+{
+    fstream expFile;
+    expFile.open(FILE_EXPORT, ios::out);
+    if (expFile.is_open())
+    {
+        expFile << "===========================================================\n";
+        expFile << "                 ALL CONSUMERS EXPORT                      \n";
+        expFile << "===========================================================\n";
+        expFile << "ID\tName\t\tType\t\tStatus\t\tBill_M6\t\tPayment_M6\n";
+        expFile << "-----------------------------------------------------------\n";
+
+        for (int i = 0; i < Total_Consumers; i++)
+        {
+            if (Consumers_IdArray[i] != 0)
+            {
+                expFile << Consumers_IdArray[i] << "\t"
+                        << Consumers_nameArray[i] << "\t\t";
+
+                if (connection_TypeArray[i] == 1)
+                    expFile << "Domestic\t\t";
+                else
+                    expFile << "Commercial\t\t";
+
+                if (active_StatusArray[i] == 1)
+                    expFile << "Active  \t\t";
+                else
+                    expFile << "Inactive\t\t";
+
+                expFile << bill_m6[i] << " PKR\t\t";
+
+                if (pay_stat6[i] == 1)
+                    expFile << "PAID\n";
+                else
+                    expFile << "UNPAID\n";
+            }
+        }
+        expFile << "===========================================================\n";
+        expFile.close();
+        cout << "\n[File] All consumers exported to '" << FILE_EXPORT << "'\n";
+    }
+}
+
+// --- WRITE (ios::out): Export month-wise revenue summary report ---
+void exportReportToFile()
+{
+    fstream repFile;
+    repFile.open(FILE_REPORT, ios::out);
+    if (repFile.is_open())
+    {
+        repFile << "===========================================================\n";
+        repFile << "             MONTH-WISE REVENUE SUMMARY REPORT             \n";
+        repFile << "===========================================================\n";
+        repFile << "Month\tTotal Revenue (PKR)\tTotal Unpaid (PKR)\n";
+        repFile << "-----------------------------------------------------------\n";
+
+        for (int m = 1; m <= 6; m++)
+        {
+            float totalRev = 0, totalUnpaid = 0;
+            for (int i = 0; i < Total_Consumers; i++)
+            {
+                if (Consumers_IdArray[i] == 0)
+                    continue;
+                float currentBill = 0;
+                int currentStat = 1;
+                bool hasReading = false;
+                if (m == 1 && curr1[i] != 0)
+                {
+                    currentBill = bill_m1[i];
+                    currentStat = pay_stat1[i];
+                    hasReading = true;
+                }
+                else if (m == 2 && curr2[i] != 0)
+                {
+                    currentBill = bill_m2[i];
+                    currentStat = pay_stat2[i];
+                    hasReading = true;
+                }
+                else if (m == 3 && curr3[i] != 0)
+                {
+                    currentBill = bill_m3[i];
+                    currentStat = pay_stat3[i];
+                    hasReading = true;
+                }
+                else if (m == 4 && curr4[i] != 0)
+                {
+                    currentBill = bill_m4[i];
+                    currentStat = pay_stat4[i];
+                    hasReading = true;
+                }
+                else if (m == 5 && curr5[i] != 0)
+                {
+                    currentBill = bill_m5[i];
+                    currentStat = pay_stat5[i];
+                    hasReading = true;
+                }
+                else if (m == 6 && curr6[i] != 0)
+                {
+                    currentBill = bill_m6[i];
+                    currentStat = pay_stat6[i];
+                    hasReading = true;
+                }
+                if (hasReading)
+                {
+                    totalRev += currentBill;
+                    if (currentStat == 0)
+                        totalUnpaid += currentBill;
+                }
+            }
+            repFile << "M" << m << "\t" << totalRev << "\t\t\t" << totalUnpaid << "\n";
+        }
+        repFile << "===========================================================\n";
+        repFile.close();
+        cout << "\n[File] Revenue report saved to '" << FILE_REPORT << "'\n";
+    }
+}
+
+// --- APPEND (ios::app): Write a log entry to system_log.txt ---
+void appendLogEntry(string message)
+{
+    fstream logFile;
+    logFile.open(FILE_LOG, ios::app);
+    if (logFile.is_open())
+    {
+        logFile << "[LOG] " << message << "\n";
+        logFile.close();
+    }
+}
+
+// ============================================================
 //              MANAGER LOGIN
 // ============================================================
 
@@ -306,6 +871,7 @@ bool managerLogin()
         if (username == "admin" && password == "123")
         {
             cout << "\n   Login Success! Press any key to enter Manager Menu...";
+            appendLogEntry("Manager login successful.");
             getch();
             return true;
         }
@@ -314,6 +880,7 @@ bool managerLogin()
             cout << "You entered wrong information.\n";
             if (i == 2)
             {
+                appendLogEntry("Manager login failed after 3 attempts.");
                 cout << "Press Any Key to continue...";
                 getch();
             }
@@ -345,6 +912,9 @@ void managerMenu()
         cout << "8)  Validate Records & Detect Conflicts\n";
         cout << "9)  Generate Reports / Summaries\n";
         cout << "10) Change Consumer Account Status (Active/In)\n";
+        cout << "11) [FILE] Save All Data to Files\n";
+        cout << "12) [FILE] Export All Consumers to File\n";
+        cout << "13) [FILE] Export Revenue Report to File\n";
         cout << "0)  Exit\n";
         cout << "---------------------------------------------\n";
         cout << "Enter your choice: ";
@@ -370,8 +940,32 @@ void managerMenu()
             generateReports();
         else if (managerOption == "10")
             changeAccountStatus();
+        else if (managerOption == "11")
+        {
+            saveAllDataToFile();
+            appendLogEntry("Manager manually saved all data to files.");
+            cout << "Press any key to return...";
+            getch();
+        }
+        else if (managerOption == "12")
+        {
+            exportAllConsumersToFile();
+            appendLogEntry("Manager exported all consumer list to file.");
+            cout << "Press any key to return...";
+            getch();
+        }
+        else if (managerOption == "13")
+        {
+            exportReportToFile();
+            appendLogEntry("Manager exported revenue report to file.");
+            cout << "Press any key to return...";
+            getch();
+        }
         else if (managerOption == "0")
         {
+            // FILE HANDLING: Auto-save on manager logout
+            saveAllDataToFile();
+            appendLogEntry("Manager logged out. Data auto-saved.");
             cout << "\nLogging out from Manager Panel... Press any key.";
             getch();
             break;
@@ -479,12 +1073,15 @@ void addOrReplaceConsumer()
             cout << "[!] Just Enter 1 or 0.\n";
     }
 
-    // Reset all readings and bills for this slot
     prev1[i] = prev2[i] = prev3[i] = prev4[i] = prev5[i] = prev6[i] = 0;
     curr1[i] = curr2[i] = curr3[i] = curr4[i] = curr5[i] = curr6[i] = 0;
     bill_m1[i] = bill_m2[i] = bill_m3[i] = bill_m4[i] = bill_m5[i] = bill_m6[i] = 0;
     used_units1[i] = used_units2[i] = used_units3[i] = used_units4[i] = used_units5[i] = used_units6[i] = 0;
     pay_stat1[i] = pay_stat2[i] = pay_stat3[i] = pay_stat4[i] = pay_stat5[i] = pay_stat6[i] = 1;
+
+    // FILE HANDLING: Auto-save after adding/updating consumer
+    saveAllDataToFile();
+    appendLogEntry("Consumer record added/updated at index " + to_string(i) + " ID: " + to_string(Consumers_IdArray[i]));
 
     cout << "\n[Success] Record updated successfully for " << Consumers_nameArray[i] << "!";
     cout << "\nPress any key to return...";
@@ -577,7 +1174,6 @@ void enterMonthlyReadings()
         return;
     }
 
-    // Find first empty month
     int startMonth = 0;
     if (curr1[foundIndex] == 0)
         startMonth = 1;
@@ -606,7 +1202,6 @@ void enterMonthlyReadings()
         cout << "[Info] Months 1 to " << startMonth - 1 << " already entered. ";
     cout << "Starting from Month " << startMonth << ".\n";
 
-    // Set cascading previous
     if (startMonth == 2)
         prev2[foundIndex] = curr1[foundIndex];
     else if (startMonth == 3)
@@ -705,6 +1300,10 @@ void enterMonthlyReadings()
 
     recalculateBills(foundIndex);
 
+    // FILE HANDLING: Auto-save after entering readings
+    saveAllDataToFile();
+    appendLogEntry("Readings entered for Consumer ID: " + to_string(Consumers_IdArray[foundIndex]));
+
     if (monthFailed)
         cout << "\n[Warning] Some months not entered due to invalid readings.";
     else
@@ -749,7 +1348,6 @@ void updateMonthlyReading()
         return;
     }
 
-    // Check if reading exists for the chosen month
     bool exists = false;
     if (monthChoice == 1 && curr1[foundIndex] != 0)
         exists = true;
@@ -799,7 +1397,6 @@ void updateMonthlyReading()
         return;
     }
 
-    // Apply correction and cascade prev values
     if (monthChoice == 1)
     {
         curr1[foundIndex] = correctedReading;
@@ -851,6 +1448,11 @@ void updateMonthlyReading()
     }
 
     recalculateBills(foundIndex);
+
+    // FILE HANDLING: Auto-save after updating
+    saveAllDataToFile();
+    appendLogEntry("Reading corrected for Consumer ID: " + to_string(Consumers_IdArray[foundIndex]) + " Month: " + to_string(monthChoice));
+
     cout << "\n[Success] Record corrected and all dependent bills updated!";
     cout << "\n\nPress any key to return...";
     getch();
@@ -893,7 +1495,6 @@ void markBillPaidUnpaid()
         return;
     }
 
-    // Check reading exists
     bool hasReading = false;
     if (monthChoice == 1 && curr1[foundIndex] != 0)
         hasReading = true;
@@ -941,7 +1542,6 @@ void markBillPaidUnpaid()
     else if (monthChoice == 6)
         pay_stat6[foundIndex] = newStatus;
 
-    // If marked PAID, auto-mark all previous months as PAID too
     if (newStatus == 1)
     {
         if (monthChoice >= 2)
@@ -958,6 +1558,11 @@ void markBillPaidUnpaid()
     }
 
     recalculateBills(foundIndex);
+
+    // FILE HANDLING: Auto-save after payment status change
+    saveAllDataToFile();
+    appendLogEntry("Payment status updated for Consumer ID: " + to_string(Consumers_IdArray[foundIndex]) + " Month: " + to_string(monthChoice) + " Status: " + to_string(newStatus));
+
     cout << "\n[Success] Status updated and all arrears recalculated!";
     cout << "\n\nPress any key to return...";
     getch();
@@ -990,7 +1595,6 @@ void displayBillingHistory()
     cout << "Month\tPrev Units\tCurr Units\tUnits Used\tBill Amount\tStatus\n";
     cout << "-----------------------------------------------------------------------------\n";
 
-    // Print each month row
     int prevArr[6] = {prev1[foundIndex], prev2[foundIndex], prev3[foundIndex], prev4[foundIndex], prev5[foundIndex], prev6[foundIndex]};
     int currArr[6] = {curr1[foundIndex], curr2[foundIndex], curr3[foundIndex], curr4[foundIndex], curr5[foundIndex], curr6[foundIndex]};
     int usedArr[6] = {used_units1[foundIndex], used_units2[foundIndex], used_units3[foundIndex], used_units4[foundIndex], used_units5[foundIndex], used_units6[foundIndex]};
@@ -999,7 +1603,8 @@ void displayBillingHistory()
 
     for (int m = 0; m < 6; m++)
     {
-        cout << "M" << m + 1 << "\t" << prevArr[m] << "\t\t" << currArr[m] << "\t\t" << usedArr[m] << "\t\t" << billArr[m] << "\t\t";
+        cout << "M" << m + 1 << "\t" << prevArr[m] << "\t\t" << currArr[m] << "\t\t"
+             << usedArr[m] << "\t\t" << billArr[m] << "\t\t";
         if (statArr[m] == 1)
             cout << "Paid";
         else
@@ -1007,6 +1612,10 @@ void displayBillingHistory()
         cout << endl;
     }
     cout << "-----------------------------------------------------------------------------\n";
+
+    // FILE HANDLING: Export this consumer's billing history to a txt file
+    exportBillingHistoryToFile(foundIndex);
+
     cout << "\n\nPress any key to return...";
     getch();
 }
@@ -1235,7 +1844,6 @@ void validateRecords()
     cout << "          SYSTEM DATA VALIDATION REPORT             \n";
     cout << "====================================================\n\n";
 
-    // Duplicate ID check
     for (int i = 0; i < Total_Consumers; i++)
     {
         if (Consumers_IdArray[i] == 0)
@@ -1250,12 +1858,10 @@ void validateRecords()
         }
     }
 
-    // Reading and bill conflicts
     for (int i = 0; i < Total_Consumers; i++)
     {
         if (Consumers_IdArray[i] == 0)
             continue;
-
         if (curr1[i] != 0 && curr1[i] < prev1[i])
         {
             cout << "[!] ERROR: Reading Conflict M1 for ID " << Consumers_IdArray[i] << endl;
@@ -1286,7 +1892,6 @@ void validateRecords()
             cout << "[!] ERROR: Reading Conflict M6 for ID " << Consumers_IdArray[i] << endl;
             issuesFound++;
         }
-
         if (curr6[i] != 0 && used_units6[i] < 0)
         {
             cout << "[!] ERROR: Negative Units for ID " << Consumers_IdArray[i] << endl;
@@ -1321,6 +1926,9 @@ void validateRecords()
         cout << ">>> All checks passed! No data conflicts found.\n";
     else
         cout << "\n----------------------------------------------------\nTOTAL ISSUES DETECTED: " << issuesFound << endl;
+
+    // FILE HANDLING: Log validation result
+    appendLogEntry("Validation run. Issues found: " + to_string(issuesFound));
 
     cout << "\nPress any key to return to Manager Menu...";
     getch();
@@ -1401,6 +2009,9 @@ void generateReports()
             }
             cout << "M" << m << "\t" << totalRev << "\t\t" << totalUnpaid << endl;
         }
+
+        // FILE HANDLING: Auto-export report after viewing
+        exportReportToFile();
     }
     else if (rChoice == "2")
     {
@@ -1490,12 +2101,10 @@ void generateReports()
             int totalU = used_units1[i] + used_units2[i] + used_units3[i] + used_units4[i] + used_units5[i] + used_units6[i];
             float totalB = bill_m1[i] + bill_m2[i] + bill_m3[i] + bill_m4[i] + bill_m5[i] + bill_m6[i];
             cout << Consumers_IdArray[i] << "\t" << Consumers_nameArray[i];
-
             if (Consumers_nameArray[i].length() < 8)
                 cout << "\t\t";
             else
                 cout << "\t";
-
             cout << totalU << "\t\t" << totalB << endl;
         }
     }
@@ -1564,7 +2173,6 @@ void changeAccountStatus()
     }
 
     cout << "\nConsumer: " << Consumers_nameArray[foundIndex] << endl;
-
     if (active_StatusArray[foundIndex] == 1)
         cout << "Current Status: ACTIVE" << endl;
     else
@@ -1581,6 +2189,10 @@ void changeAccountStatus()
             cout << "\n[Success] Account status updated to ACTIVE.";
         else
             cout << "\n[Success] Account status updated to INACTIVE.";
+
+        // FILE HANDLING: Auto-save after status change
+        saveAllDataToFile();
+        appendLogEntry("Account status changed for Consumer ID: " + to_string(Consumers_IdArray[foundIndex]) + " New Status: " + to_string(newStat));
     }
     else
     {
@@ -1615,6 +2227,9 @@ void consumerPortal()
         return;
     }
 
+    // FILE HANDLING: Log consumer login
+    appendLogEntry("Consumer logged in. ID: " + to_string(id));
+
     string consumerChoice;
     while (true)
     {
@@ -1636,6 +2251,7 @@ void consumerPortal()
             viewAccountDetails(foundIndex);
         else if (consumerChoice == "4" || consumerChoice == "5")
         {
+            appendLogEntry("Consumer logged out. ID: " + to_string(id));
             cout << "Logging out...\n";
             break;
         }
@@ -1669,6 +2285,9 @@ void viewCurrentBill(int foundIndex)
             cout << "Status: PAID" << endl;
         else
             cout << "Status: UNPAID" << endl;
+
+        // FILE HANDLING: Export bill receipt when consumer views bill
+        exportBillReceiptToFile(foundIndex);
     }
 
     cout << "\nPress Any key to go back...";
